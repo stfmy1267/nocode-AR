@@ -4,12 +4,12 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  // base: './',
-  base: (process.env.NODE_ENV === 'poduction')
-    ? '/nocode-ar/' : './',
+  // publicPath: './',
+  base: '/nocode-AR/',
+  // base: (process.env.NODE_ENV === 'poduction') ? '/nocode-AR/' : './',
   build: {
   outDir: 'docs'
-},
+  },
   server: {
     port: 8888
   },

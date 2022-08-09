@@ -5,16 +5,15 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   // publicPath: './',
-  base: (process.env.NODE_ENV === 'poduction') ? '/nocode-AR/' : './',
+  base: (process.env.NODE_ENV === 'poduction')
+    ? '/nocode-AR/' : './',
   build: {
   outDir: 'docs'
   },
   server: {
     port: 8888
   },
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()]
   //   // 画像圧縮
   //   viteImagemin({
   //     gifsicle: {

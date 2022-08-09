@@ -21,7 +21,6 @@
     "autoprefixer": "^10.4.8",
     "eslint": "^8.20.0",
     "eslint-plugin-vue": "^9.3.0",
-    "gh-pages": "^4.0.0",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "sass": "^1.54.0",

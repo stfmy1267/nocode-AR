@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
+    "depoly":"sh dependencies.sh",
     "lint": "eslint --fix src/*.{js,vue} && eslint --fix src/**/*.{js,vue}",
     "format": "prettier -w src/*.{js,vue} && prettier -w src/**/*.{js,vue}",
     "fix": "npm run format && npm run lint"

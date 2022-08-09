@@ -19,6 +19,7 @@ const routes = [
   { path: '/spot', component: Spot },
   { path: '/spotlist', name: 'spotlist', component: SpotList },
   { path: '/public', component: Public },
+  // { path: "/:catchAll(.*)",component: NotFound },
 ]
 
 const router = createRouter({

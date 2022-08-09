@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   // publicPath: './',
-  // base: '/nocode-AR/',
   base: (process.env.NODE_ENV === 'poduction') ? '/nocode-AR/' : './',
   build: {
   outDir: 'docs'

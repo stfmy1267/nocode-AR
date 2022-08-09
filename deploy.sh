@@ -7,13 +7,13 @@ set -e
 npm run build
 
 # ビルド出力ディレクトリに移動
-# cd docs/
+# cd dist/
 
-git init
+# git init
 # git checkout -b main
 git add -A
 git commit -m 'deploy'
-
-git push -f git@github.com:stfmy1267/nocode-AR.git main:gh-pages
+git push
+# git push -f git@github.com:stfmy1267/nocode-AR.git main:gh-pages
 
 # cd -

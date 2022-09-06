@@ -1,93 +1,89 @@
 <script setup>
-import HeaderApp from '../components/Header.vue'
-import { reactive,ref } from 'vue'
+import { reactive, ref } from 'vue'
 
-// ポップアップのON/OFF
-let popActive = ref(false)
-const showPopUp = () => {
-  popActive.value = !popActive.value
+// ポップアップのON/OFFと入力値のリセット
+let createPopup = ref(false)
+let check = ref('')
+const showCreatePopUp = () => {
+  createPopup.value = !createPopup.value
+  titleVal.value = ''
+  arTypeVal.value = ''
+  check.value = false
+  titleError.value = false
+  arTypeError.value = false
 }
-const s = reactive({
-test: [
-  {
-    title: "高美台ラリー",
-    arType: "マーカー"
-  },
-  {
-    title: "高美台ラリー",
-    arType: "マーカー"
-  },
-  {
-    title: "高美台ラリー",
-    arType: "マーカー"
-  },
-]
-})
-  console.log(s.test[0].title)
 
 // スタンプラリー作成
 // もし、データベースにスタンプラリーがあるならそのデータを表示
 // ない場合は表示しない
 const state = reactive({
-  rallys: [
-    {
-      title: "高美台ラリー",
-      arType: "マーカー"
-    },
-    {
-      title: "高美台ラリー",
-      arType: "マーカー"
-    },
-    {
-      title: "高美台ラリー",
-      arType: "マーカー"
-    },
-  ],
+  rallys: [],
 })
 
-// state.rallys[0] = state.rallyInfo
-const createRally = () => {console.log("確認")
-  state.rallyInfo.title = "こんにちわ"
-  state.rallyInfo.arType = "ロケーション"
-  state.rallys[0] = state.rallInfo
-  // $router.push('/edit')
+let titleError = ref(false)
+let arTypeError = ref(false)
+
+// スタンプラリー作成
+let titleVal = ref('')
+let arTypeVal = ref('')
+const createRally = () => {
+  if (!titleVal.value & !arTypeVal.value) {
+    titleError.value = true
+    arTypeError.value = true
+  } else if (!titleVal.value) {
+    titleError.value = true
+    arTypeError.value = false
+  } else if (!arTypeVal.value) {
+    titleError.value = false
+    arTypeError.value = true
+  } else {
+    state.rallys.push({
+      title: titleVal.value,
+      arType: arTypeVal.value,
+    })
+    showCreatePopUp()
+  }
 }
 
-const deleteRally = () => {
-  console.log("確認")
-  // $router.push('/edit')
+const deleteRally = (index) => {
+  if (confirm('本当に削除しますか?')) {
+    //確認をとる
+    state.rallys.splice(index, 1)
+  }
 }
 </script>
 
 <template>
   <div class="flex-1">
-    <HeaderApp />
-    <div v-for="a in s.test" :key="a">
-      <li>
-        {{ a.title }}
-      </li>
-    </div>
-    <div
-      v-if="popActive"
-      class="w-[70%] h-[80%] z-40 overflow-auto absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white border border-black"
-    >
-      <button class="text-4xl absolute top-3 right-5" @click="showPopUp">×</button>
+    <div v-if="createPopup" class="w-[70%] h-[80%] z-40 overflow-auto position-center bg-white border border-black">
+      <button class="text-4xl absolute top-3 right-5" @click="showCreatePopUp">×</button>
       <div class="flex flex-col items-center mb-10">
-        <h1 class="text-center text-xl my-5">1. スタンプラリー名を決める</h1>
-        <textarea name="title" rows="1" class="w-[80%] h-10 text-xl py-1 px-3 text-center border border-black bottom-1" />
+        <h2 class="text-center text-xl my-5">1. スタンプラリー名を決める</h2>
+        <textarea
+          id="title"
+          v-model="titleVal"
+          rows="1"
+          class="w-[80%] h-10 text-xl py-1 px-3 text-center border border-black bottom-1"
+          :class="{ error: titleError }"
+        />
+        <span v-if="titleError">×スタンプラリーのタイトルが入力されていません</span>
       </div>
       <div>
-        <h1 class="text-center text-xl my-5">2. 作成する型を決める</h1>
+        <h2 class="text-center text-xl my-5">2. 作成する型を決める</h2>
+        <span v-if="arTypeError">×スタンプラリーのタイプが選択されていません</span>
         <div class="flex justify-around items-center mb-10">
           <div class="flex flex-col justify-center items-center">
             <input
-              id="marker" type="radio" value="マーカーベースAR"
-              name="ARtype" class="opacity-0"
+              id="marker"
+              v-model="arTypeVal"
+              type="radio"
+              :checked="check"
+              value="マーカー型"
+              name="ARtype"
+              class="opacity-0"
             >
-            <label for="marker" class="w-[90%] h-[35vmin] mb-5 rounded-xl btn-gray">
-              <p class="w-full position-center text-center text-lg">
-                マーカーベース<br>AR
-              </p>
+            <label for="marker" class="w-[90%] h-[35vmin] mb-5 rounded-xl btn-gray" :class="{ error: arTypeError }">
+              <p class="w-full position-center text-center text-lg">マーカーベース<br>AR</p>
             </label>
             <p class="text-center">
               利用シーン<br>
@@ -96,14 +92,16 @@ const deleteRally = () => {
           </div>
           <div class="flex flex-col justify-center items-center">
             <input
-              id="location" type="radio" value="マーカーベースAR"
-              name="ARtype" class="opacity-0"
+              id="location"
+              v-model="arTypeVal"
+              type="radio"
+              :checked="check"
+              value="ロケーション型"
+              name="ARtype"
+              class="opacity-0"
             >
-            <label for="location" class="relative w-[90%] h-[35vmin] mb-5 rounded-xl btn-gray">
-              <p class="w-full position-center text-center text-lg">
-                ロケーションベース<br>
-                <span class="">AR</span>
-              </p>
+            <label for="location" class="relative w-[90%] h-[35vmin] mb-5 rounded-xl btn-gray" :class="{ error: arTypeError }">
+              <p class="w-full position-center text-center text-lg">ロケーションベース<br>AR</p>
             </label>
             <p class="text-center">
               利用シーン<br>
@@ -112,17 +110,12 @@ const deleteRally = () => {
           </div>
         </div>
       </div>
-      <button
-        class="w-48 h-10 mb-10 relative left-1/2 -translate-x-[50%] btn-gray"
-        @click="createRally"
-      >
-        作成する
-      </button>
+      <button class="w-48 h-10 mb-10 relative left-1/2 -translate-x-[50%] btn-gray" @click="createRally()">作成する</button>
     </div>
     <div class="w-3/4 m-auto mt-10 flex-1">
       <div class="flex justify-between items-center mb-5">
         <h2 class="text-2xl ml-[3%]">スタンプラリー一覧</h2>
-        <button class="w-48 h-12 mr-[3%] btn-gray" @click="showPopUp">＋新規作成</button>
+        <button class="w-48 h-12 mr-[3%] btn-gray" @click="showCreatePopUp">＋新規作成</button>
       </div>
       <table class="table-fixed mb-10 w-full">
         <thead>
@@ -135,7 +128,7 @@ const deleteRally = () => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="rally in state.rallys" :key="rally">
+          <tr v-for="(rally, index) in state.rallys" :key="rally">
             <td class="border">
               <img src="">
             </td>
@@ -145,7 +138,7 @@ const deleteRally = () => {
             <td class="border px-4 py-2">
               <button class="btn-gray mb-3 w-4/5" @click="$router.push('/edit')">編集する</button>
               <br>
-              <button class="btn-gray mb-3 w-4/5" @click="deleteRally">削除する</button>
+              <button class="btn-gray mb-3 w-4/5" @click="deleteRally(index)">削除する</button>
             </td>
           </tr>
         </tbody>
@@ -182,8 +175,19 @@ tr {
   background-color: gray;
 }
 
-#marker:checked + label,
-#location:checked + label {
+input:checked + label {
   background-color: gray;
+  border: black solid 2px;
+}
+
+.error {
+  background-color: rgb(252, 227, 227);
+  border: solid 2px rgb(195, 62, 62);
+}
+span {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  color: rgb(195, 62, 62);
 }
 </style>

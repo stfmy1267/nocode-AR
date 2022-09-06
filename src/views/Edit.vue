@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import HeaderApp from '../components/Header.vue'
 import SideMenu from '../components/SideMenu.vue'
-import SaveButton from '../components/SaveButton.vue'
 
+window.onbeforeunload = (e) => {
+  e.returnValue = '本当にページを閉じますか？'
+}
 // ドラックした時のクラスをオン・オフ切り替えるやつ
 let isEnter = ref(false)
 // base64 エンコーディングされた data: URL の文字列が格納される
@@ -55,7 +56,6 @@ const onFileChange = (e) => {
 
 <template>
   <div>
-    <HeaderApp />
     <SideMenu />
     <div class="w-2/4 m-auto mt-10 bg-gray-300">
       <h2 class="bg-black text-white text-xl mb-5 px-2">基本情報</h2>
@@ -110,7 +110,9 @@ const onFileChange = (e) => {
       </div>
       <div class="w-[90%] m-auto overflow-auto" />
     </div>
-    <SaveButton />
+    <div class="flex justify-center items-center">
+      <button class="w-48 h-12 mb-10 btn-gray">保存</button>
+    </div>
   </div>
 </template>
 

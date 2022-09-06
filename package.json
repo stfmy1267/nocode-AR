@@ -7,12 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "depoly":"sh dependencies.sh",
+    "depoly": "sh dependencies.sh",
     "lint": "eslint --fix src/*.{js,vue} && eslint --fix src/**/*.{js,vue}",
     "format": "prettier -w src/*.{js,vue} && prettier -w src/**/*.{js,vue}",
     "fix": "npm run format && npm run lint"
   },
   "dependencies": {
+    "leaflet": "^1.8.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

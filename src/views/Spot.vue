@@ -1,5 +1,5 @@
 <script setup>
-import { ref , onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import SideMenu from '../components/SideMenu.vue'
 import L from 'leaflet'
 

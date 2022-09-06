@@ -6,6 +6,6 @@ import router from './router'
 // import axios from 'axios'
 
 createApp(App)
-.use(router)
-// .use(axios)
-.mount('#app')
+  .use(router)
+  // .use(axios)
+  .mount('#app')

@@ -4,8 +4,9 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  base:'/nocode-AR/',
-  // base: (process.env.NODE_ENV === 'poduction') ? '/nocode-AR/' : './',
+  // base:'/gitbucket/Fumiya238/nocode-AR/pages/',
+
+  base: (process.env.NODE_ENV === 'poduction') ? '/nocode-AR/' : './',
   build: {
   outDir: 'docs'
   },

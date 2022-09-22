@@ -1,28 +1,28 @@
 <script setup>
 // import axios form 'axios'
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+// import { ref, onMounted } from 'vue'
+// import axios from 'axios'
 
-let weatherData = ref('')
+// let weatherData = ref('')
 
-const api = () => {
-  axios({
-    url: 'https://jsonplaceholder.typicode.com/users', //←cloud functions httpリクエスト
-    method: 'get',
-    headers: {},
-    params: {},
-  })
-    .then((res) => {
-      console.log('成功', res)
-      weatherData.value = res.data
-    })
-    .catch((e) => {
-      console.log('失敗', e)
-    })
-}
-onMounted(() => {
-  api()
-})
+// const api = () => {
+//   axios({
+//     url: 'https://jsonplaceholder.typicode.com/users', //←cloud functions httpリクエスト
+//     method: 'get',
+//     headers: {},
+//     params: {},
+//   })
+//     .then((res) => {
+//       console.log('成功', res)
+//       weatherData.value = res.data
+//     })
+//     .catch((e) => {
+//       console.log('失敗', e)
+//     })
+// }
+// onMounted(() => {
+//   api()
+// })
 // import { ref } from 'vue'
 
 // const showSideMenu = () => {

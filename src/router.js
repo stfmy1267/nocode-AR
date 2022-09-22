@@ -8,6 +8,7 @@ import SettingAR from './views/SettingAR.vue'
 import Spot from './views/Spot.vue'
 import SpotList from './views/SpotList.vue'
 import Public from './views/Public.vue'
+import test from './views/test.vue'
 
 const routes = [
   // { path: '/', component: Home },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/spot', component: Spot },
   { path: '/spotlist', name: 'spotlist', component: SpotList },
   { path: '/public', component: Public },
+  { path: '/test', component: test },
   // { path: "/:catchAll(.*)",component: NotFound },
 ]
 

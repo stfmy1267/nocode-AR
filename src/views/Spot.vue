@@ -120,7 +120,7 @@ const onFileChange = (e) => {
     <div class="w-2/4 m-auto mt-10 mb-14 bg-gray-300">
       <h2 class="bg-black text-white text-xl px-2">位置情報の設定</h2>
       <!-- eslint-disable  -->
-      <div id="map" ref="map" class="h-[400px]"></div>
+      <div id="map" class="h-[400px]"></div>
       <p>{{ '緯度:' + lat + '経度:' + lng }}</p>
       <!-- eslint-enable  -->
       <div class="w-[90%] m-auto overflow-auto" />

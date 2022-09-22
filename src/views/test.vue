@@ -1,15 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+import { reactive, ref } from 'vue'
+// import store from '../store';
 
 // ポップアップのON/OFFと入力値のリセット
-
 let createPopup = ref(false)
 let check = ref('')
-let titleError = ref(false)
-let arTypeError = ref(false)
-
 const showCreatePopUp = () => {
   createPopup.value = !createPopup.value
   titleVal.value = ''
@@ -19,23 +14,19 @@ const showCreatePopUp = () => {
   arTypeError.value = false
 }
 
-const getAllRally = computed(() => {
-  return store.getters.getAllRally
+// スタンプラリー作成
+// もし、データベースにスタンプラリーがあるならそのデータを表示
+// ない場合は表示しない
+const state = reactive({
+  rallys: [],
 })
 
-const saveRally = () => {
-  let rally = {
-    title: titleVal.value,
-    arType: arTypeVal.value,
-  }
-  // console.log(rally.title)
-  store.commit('saveRally', rally)
-}
+let titleError = ref(false)
+let arTypeError = ref(false)
 
 // スタンプラリー作成
 let titleVal = ref('')
 let arTypeVal = ref('')
-
 const createRally = () => {
   if (!titleVal.value & !arTypeVal.value) {
     titleError.value = true
@@ -47,15 +38,20 @@ const createRally = () => {
     titleError.value = false
     arTypeError.value = true
   } else {
-    saveRally()
+    state.rallys.push({
+      title: titleVal.value,
+      arType: arTypeVal.value,
+    })
+    console.log(state.rallys)
     showCreatePopUp()
+    // saveRally()
   }
 }
 
 const deleteRally = (index) => {
   if (confirm('本当に削除しますか?')) {
     //確認をとる
-    getAllRally.value.splice(index, 1)
+    state.rallys.splice(index, 1)
   }
 }
 </script>
@@ -135,7 +131,7 @@ const deleteRally = (index) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(rally, index) in getAllRally" :key="rally">
+          <tr v-for="(rally, index) in state.rallys" :key="rally">
             <td class="border">
               <img src="">
             </td>

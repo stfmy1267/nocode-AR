@@ -8,8 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 api/node_modules
-api/dist
-api/docs
 api/dist-ssr
 api/*.local
 api.env
@@ -17,7 +15,6 @@ api.env
 
 client/node_modules
 client/dist
-client/docs
 client/dist-ssr
 client/*.local
 client.env

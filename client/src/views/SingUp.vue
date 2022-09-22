@@ -58,7 +58,7 @@ const pushHideButton = () => {
             v-model="user_name"
             type="user_name"
             name="user_name"
-            class=" form-box "
+            class="form-box"
             placeholder="ユーザーネーム"
             autocomplete="user_name"
             required
@@ -71,7 +71,7 @@ const pushHideButton = () => {
             type="email"
             name="email"
             placeholder="メールアドレス"
-            class=" form-box "
+            class="form-box"
             autocomplete="email"
             required
           >
@@ -83,7 +83,7 @@ const pushHideButton = () => {
             type="password"
             name="password"
             placeholder="パスワード"
-            class=" form-box "
+            class="form-box"
             autocomplete="current-password"
             required
           >
@@ -120,7 +120,7 @@ const pushHideButton = () => {
 </template>
 
 <style scoped>
-.form-wrapper{
+.form-wrapper {
   width: 50%;
 }
 </style>

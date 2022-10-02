@@ -33,7 +33,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
-    console.log(store.state.user === null)
+    console.log(store.state.user)
     if (!store.state.user) {
       next('/login')
     } else {

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+import router from '../router'
 // ルート処理用にインポート
 
 export default createStore({
@@ -64,7 +65,6 @@ export default createStore({
           // レスポンスにユーザ情報がかえってくる
           const user = await axios.get('http://localhost:3000/api/users/user')
           // vuexにユーザー保存
-          console.log(user.data)
           commit('setUser', user.data)
           // ログインの場合はスタンプラリーも一緒に取得
           await dispatch('getAllRally', user.data.id)
@@ -81,13 +81,15 @@ export default createStore({
           password: authData.password,
         })
         .then(async (response) => {
-          console.log(response.data.token)
           let token = response.data.token
           commit('updateToken', token)
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-          response = await axios.get('http://localhost:3000/api/users/user')
-          commit('setUser', response.data)
-          commit('setToken', token)
+          await axios.get('http://localhost:3000/api/users/user')
+            .then((response) => {
+              commit('setUser', response.data)
+              commit('setToken', token)
+              router.push('/')
+            })
           // 新規登録の場合はスタンプラリーはないので保存処理を行わない
         })
         .catch((err) => {
@@ -100,20 +102,25 @@ export default createStore({
           } else if (err.response.data.message) {
             console.log(err.response.data.message)
           }
+          router.push('/singup')
         })
     },
     getAllRally: async ({ state, commit }, userID) => {
-      await axios
-        .post('http://localhost:3000/api/user/rallies', {
-          id: userID,
-        })
-        .then((response) => {
-          console.log(state.stampRally.length === 0)
-          // スタンプラリ一覧がかえってくる、それをvuexに保存
-          if (state.stampRally.length === 0) {
+      // vuexのスタンプラリーがなければ実行
+      if (state.stampRally.length === 0) {
+        await axios
+          .post('http://localhost:3000/api/user/rallies', {
+            id: userID,
+          })
+          .then((response) => {
+            console.log(response.data)
+            // スタンプラリ一覧がかえってくる、それをvuexに保存
             commit('saveRally', response.data)
-          }
-        })
+          }).catch((err) => {
+            // DBにスタンプラリーが一個もなければVuexに保存しない
+            console.log(err.response.data.message)
+          })
+      }
     },
     logout({ commit }) {
       commit('clearAuth')

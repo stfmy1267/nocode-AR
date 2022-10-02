@@ -19,7 +19,7 @@ const clickUserIcon = () => {
   showUser.value = !showUser.value
 }
 const logout = () => {
-  store.dispatch('user/logout').then(() => {
+  store.dispatch('logout').then(() => {
     router.push('/login')
   })
 }

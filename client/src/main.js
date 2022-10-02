@@ -9,15 +9,17 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // import jwt_decode from 'jwt-decode';
 
 const token = localStorage.getItem('accessToken')
+
 if (token) {
-  console.log(token)
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
   axios.get('http://localhost:3000/api/users/user').then(async (response) => {
-    console.log(response.data)
     let user = response.data
-    console.log(user.id)
     await store.dispatch('setUser', user)
     await store.dispatch('getAllRally', user.id)
+    createApp(App).use(store).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
+  }).catch(async(err)=>{
+    console.log(err.response.data.message)
+    router.push('/login')
     createApp(App).use(store).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
   })
 } else {

@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import router from '../router'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 /* import eyes icons */
@@ -18,9 +17,6 @@ const register = () => {
     .dispatch('register', {
       email: email.value,
       password: password.value,
-    })
-    .then(() => {
-      router.push('/')
     })
 }
 

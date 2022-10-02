@@ -1,49 +1,44 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import UserBar from '../components/UserBar.vue'
 const store = useStore()
 
 // ポップアップのON/OFFと入力値のリセット
-
 let createPopup = ref(false)
 let check = ref('')
-let titleError = ref(false)
-let arTypeError = ref(false)
+let title = ref('') //スタンプラリーのタイトル
+let arType = ref('') //スタンプラリーのAR型
+let titleError = ref(false) //タイトルバリデーションチェック
+let arTypeError = ref(false) //型バリデーションチェック
 
 const showCreatePopUp = () => {
   createPopup.value = !createPopup.value
-  titleVal.value = ''
-  arTypeVal.value = ''
+  title.value = ''
+  arType.value = ''
   check.value = false
-  titleError.value = false
-  arTypeError.value = false
+  titleError.value, (arTypeError.value = false)
 }
 
-const getAllRally = computed(() => {
-  return store.getters.getAllRally
-})
+// 全てのスタンプラリーを取得
+const getAllRally = computed(() => store.getters.getAllRally)
 
 const saveRally = () => {
-  let rally = {
-    title: titleVal.value,
-    arType: arTypeVal.value,
+  let stampRally = {
+    title: title.value,
+    type: arType.value,
   }
-  // console.log(rally.title)
-  store.commit('saveRally', rally)
+  store.commit('saveRally', stampRally)
 }
 
-// スタンプラリー作成
-let titleVal = ref('')
-let arTypeVal = ref('')
-
 const createRally = () => {
-  if (!titleVal.value & !arTypeVal.value) {
+  if (!title.value & !arType.value) {
     titleError.value = true
     arTypeError.value = true
-  } else if (!titleVal.value) {
+  } else if (!title.value) {
     titleError.value = true
     arTypeError.value = false
-  } else if (!arTypeVal.value) {
+  } else if (!arType.value) {
     titleError.value = false
     arTypeError.value = true
   } else {
@@ -61,6 +56,7 @@ const deleteRally = (index) => {
 </script>
 
 <template>
+  <UserBar />
   <div class="flex-1">
     <div v-if="createPopup" class="w-[70%] h-[80%] z-40 overflow-auto position-center bg-white border border-black">
       <button class="text-4xl absolute top-3 right-5" @click="showCreatePopUp">×</button>
@@ -68,7 +64,7 @@ const deleteRally = (index) => {
         <h2 class="text-center text-xl my-5">1. スタンプラリー名を決める</h2>
         <textarea
           id="title"
-          v-model="titleVal"
+          v-model="title"
           rows="1"
           class="w-[80%] h-10 text-xl py-1 px-3 text-center border border-black bottom-1"
           :class="{ error: titleError }"
@@ -82,7 +78,7 @@ const deleteRally = (index) => {
           <div class="flex flex-col justify-center items-center">
             <input
               id="marker"
-              v-model="arTypeVal"
+              v-model="arType"
               type="radio"
               :checked="check"
               value="マーカー型"
@@ -100,7 +96,7 @@ const deleteRally = (index) => {
           <div class="flex flex-col justify-center items-center">
             <input
               id="location"
-              v-model="arTypeVal"
+              v-model="arType"
               type="radio"
               :checked="check"
               value="ロケーション型"
@@ -141,7 +137,7 @@ const deleteRally = (index) => {
             </td>
             <td class="border px-4 py-2">{{ rally.title }}</td>
             <td class="border px-4 py-2">非公開</td>
-            <td class="border px-4 py-2">{{ rally.arType }}</td>
+            <td class="border px-4 py-2">{{ rally.type }}</td>
             <td class="border px-4 py-2">
               <button class="btn-gray mb-3 w-4/5" @click="$router.push('/edit')">編集する</button>
               <br>

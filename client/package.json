@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "jwt-decode": "^3.1.2",
     "leaflet": "^1.8.0",
     "sqlite3": "^5.1.1",
     "vue": "^3.2.37",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-router-sync": "^6.0.0-rc.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",

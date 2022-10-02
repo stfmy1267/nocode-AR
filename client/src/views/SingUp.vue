@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
+import router from '../router'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 /* import eyes icons */
@@ -7,31 +9,21 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faEye, faEyeSlash)
 
-// import { userRouter } from 'vue-router';
-// import axios from 'axios';
-// const router = userRouter();
+const store = useStore()
 
-const user_name = ref('')
 const email = ref('')
 const password = ref('')
+const register = () => {
+  store
+    .dispatch('register', {
+      email: email.value,
+      password: password.value,
+    })
+    .then(() => {
+      router.push('/')
+    })
+}
 
-// const error = ref('')
-
-// const register = () => {
-//   axios
-//     .post('http://localhost:3000/api/users/register', {
-//       user_name: user_name.value,
-//       email: email.value,
-//       password: password.value,
-//     })
-//     .then((response) => {
-//       console.log(response.data);
-//       router.push('/');
-//     })
-//     .catch((err) => {
-//       error.value = err.response.data.message;
-//     })
-// };
 let isEye = ref(true)
 const pushHideButton = () => {
   isEye.value = !isEye.value
@@ -46,24 +38,9 @@ const pushHideButton = () => {
 
 <template>
   <div>
-    <div class="flex justify-center items-center w-full h-20 mb-8 text-center border-b-2 border-black">
-      <div class="text-4xl">nocode-AR</div>
-    </div>
-    <h3 class="text-4xl mb-12 text-center">ユーザー登録</h3>
+    <h3 class="text-4xl mt-10 mb-12 text-center">ユーザー登録</h3>
     <form @submit.prevent="register">
       <div class="flex flex-col justify-center items-center mb-4">
-        <div class="form-wrapper">
-          <input
-            id="user_name"
-            v-model="user_name"
-            type="user_name"
-            name="user_name"
-            class="form-box"
-            placeholder="ユーザーネーム"
-            autocomplete="user_name"
-            required
-          >
-        </div>
         <div class="form-wrapper">
           <input
             id="email"
@@ -85,6 +62,7 @@ const pushHideButton = () => {
             placeholder="パスワード"
             class="form-box"
             autocomplete="current-password"
+            minlength="6"
             required
           >
           <div class="absolute right-4 top-[19px]" @click="pushHideButton">
@@ -98,22 +76,14 @@ const pushHideButton = () => {
             />
           </div>
         </div>
-        <button
-          to="/rallylist"
-          type="submit"
-          value="ユーザー登録"
-          class="w-[250px] h-[60px] text-white text-2xl text-center bg-black rounded-[20px]"
-          @submit.prevent="register"
-          @click="$router.push('/rallylist')"
-        >
+        <button type="submit" class="w-[250px] h-[60px] text-white text-2xl text-center bg-black rounded-[20px]">
           ユーザー登録
         </button>
       </div>
     </form>
 
     <div class="text-center">
-      パスワードを忘れた場合：<a href="" class="text-blue-600">パスワードリセット</a><br><br>
-      まだユーザーを登録していない場合：<a href="" class="text-blue-600">ユーザー登録</a><br><br>
+      すでに登録している場合：<router-link to="/login" class="text-blue-600">ログイン</router-link><br><br>
       <a href="" class="text-blue-600">Webサイトに戻る</a>
     </div>
   </div>
@@ -122,5 +92,11 @@ const pushHideButton = () => {
 <style scoped>
 .form-wrapper {
   width: 50%;
+}
+
+.error {
+  color: #8a0421;
+  border-color: #dd0f3b;
+  background-color: #ffd9d9;
 }
 </style>

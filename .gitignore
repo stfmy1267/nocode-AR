@@ -12,12 +12,11 @@ server/dist-ssr
 server/*.local
 server/.env
 
-
 client/node_modules
 client/dist
 client/dist-ssr
 client/*.local
-client.env
+client/.env
 
 # Editor directories and files
 client/.vscode/*

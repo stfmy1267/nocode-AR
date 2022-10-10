@@ -4,8 +4,8 @@ import { useStore } from 'vuex'
 import router from '../router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircleUser, faArrowRightFromBracket)
+import { faArrowRightFromBracket, faGear, faTrash } from '@fortawesome/free-solid-svg-icons'
+library.add(faCircleUser,faGear, faArrowRightFromBracket, faTrash )
 const store = useStore()
 
 let email = ref('ログアウト中')
@@ -43,6 +43,16 @@ const logout = () => {
           class="-translate-x-1"
         />{{ email }}
       </p>
+      <button class="mb-4">
+        <font-awesome-icon icon="fa-solid fa-trash" />
+        アカウント削除
+      </button>
+      <br>
+      <!-- <button class="mb-4">
+        <font-awesome-icon icon="fa-solid fa-gear" size="lg" fixed-width />
+        アカウント設定
+      </button>
+      <br> -->
       <button v-if="user" @click="logout">
         <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" fixed-width />
         ログアウト

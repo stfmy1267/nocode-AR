@@ -1,4 +1,3 @@
-// import JWT from 'jsonwebtoken'
 const JWT = require('jsonwebtoken')
 // export default async (req,res,next) => {
 module.exports = async (req,res,next) => {
@@ -13,8 +12,7 @@ module.exports = async (req,res,next) => {
     );
   } else {
     try {
-      let user = JWT.verify(token,"SECRET_KEY")
-      req.user = user;
+      req.user = JWT.verify(token,"SECRET_KEY")
       next();
     } catch {
       return res.status(400).json(

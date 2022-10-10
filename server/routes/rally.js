@@ -1,11 +1,11 @@
-// import express from 'express';
-const express = require('express')
+const express = require('express');
+const checkJWT = require('../middleware/checkJWT');
 const router = express.Router();
 const model = require('../model/db.js')
 
 // スタンプラリーの取得
-router.post("/rallies", async (req, res) => {
-  const stampRallies = await model.getAllRally("select * from stamp_rallies where user_id = ?", [req.body.id]);
+router.get("/rallies",checkJWT, async (req, res) => {
+  const stampRallies = await model.getAllRally("select * from stamp_rallies where user_id = ?", [req.user.id]);
   if (stampRallies.length === 0) {
     return res.status(400).json(
       {

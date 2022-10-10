@@ -1,4 +1,4 @@
-import store from './store/store'
+import store from './store/index'
 import { createRouter, createWebHistory } from 'vue-router'
 // import Home from './views/Home.vue'
 import Login from './views/Login.vue'
@@ -17,12 +17,14 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/singup', component: SingUp },
   { path: '/', component: RallyList, meta: { requiresAuth: true } },
-  { path: '/edit', component: Edit, meta: { requiresAuth: true } },
-  { path: '/setting-ar', component: SettingAR, meta: { requiresAuth: true } },
-  { path: '/spot', component: Spot, meta: { requiresAuth: true } },
-  { path: '/spotlist', name: 'spotlist', component: SpotList, meta: { requiresAuth: true } },
-  { path: '/public', component: Public, meta: { requiresAuth: true } },
-  { path: '/test', component: test, meta: { requiresAuth: true } },
+  { path: '/:id', component: test, meta: { requiresAuth: true } },
+  { path: '/:id/edit', component: Edit, meta: { requiresAuth: true } },
+  { path: '/:id/setting-ar', component: SettingAR, meta: { requiresAuth: true } },
+  { path: '/:id/spot', component: Spot, meta: { requiresAuth: true } },
+  { path: '/:id/spotlist', name: 'spotlist', component: SpotList, meta: { requiresAuth: true } },
+  { path: '/:id/public', component: Public, meta: { requiresAuth: true } },
+  { path: '/:id/test', component: test, meta: { requiresAuth: true } },
+
   // { path: "/:catchAll(.*)",component: NotFound },
 ]
 
@@ -31,9 +33,10 @@ const router = createRouter({
   routes,
 })
 
+
+
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
-    console.log(store.state.user)
     if (!store.state.user) {
       next('/login')
     } else {
@@ -43,5 +46,14 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 })
+
+// const addURL = (url) =>{
+//   router.push({
+//     path:'/'+ url
+//   })
+// }
+// if (store.state.stampRally[0]){
+//   addURL(store.state.stampRally[0].url)
+// }
 
 export default router

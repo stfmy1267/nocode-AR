@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <title>no-codeAR</title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="#">nocode-AR</a>
+      </h1>
+      <nav>
+        <ul>
+          <li class="header-list">
+            <a href="#About">About</a>
+          </li>
+          <li class="header-list">
+            <a href="#Marker">MarkerAR</a>
+          </li>
+          <li class="header-list">
+            <a href="#Location">LocationAR</a>
+          </li>
+          <li class="header-list">
+            <a href="#SingUp">Sing Up</a>
+          </li>
+          <div class="ml-8">
+            <button class="header-btn" style="background-color: white; color: black;">
+              新規登録
+            </button>
+            <button class="header-btn" style="background-color:black; color:white;">
+              ログイン
+            </button>
+          </div>
+        </ul>
+      </nav>
+      <!-- レスポンス -->
+      <!-- <button class="relative md:hidden h-5 w-6" @click="isOpen = !isOpen">
+        <span
+          :class="isOpen ? 'transform rotate-45 top-2 w-7 transition duration-300' : 'top-0 w-6'"
+          class="h-1 inline-block transition-all absolute right-0 bg-black"
+        />
+        <span :class="isOpen ? 'hidden' : 'top-2 w-6'" class="h-1 inline-block transition-all absolute right-0 bg-black" />
+        <span
+          :class="isOpen ? 'transform rotate-45 top-2 w-7 transition duration-300' : 'top-4 w-6'"
+          class="h-1 inline-block transition-all absolute right-0 bg-black"
+        />
+      </button> -->
+    </header>
+
+    <div class="main_visual">
+      <h2>誰でも簡単に作れる<br />WebARスタンプラリー</h2>
+      <img src="./images/Mockup-1.png" alt="メイン画像" />
+    </div>
+    <div id="About" class="about">
+      <h3>About</h3>
+      <p>nocode-ARは誰でも簡単にWebARスタンプラリーが作成できるサービスです。</p>
+      <div>
+        <section class="about-section -translate-y-10">
+          <h4>ダウンロード不要</h4>
+          <img src="./images/augmented-reality.png" />
+          <p>ブラウザでアクセスするだけで参加可能。専用アプリのダウンロードは必要ありません。</p>
+        </section>
+        <section class="about-section mr-auto -translate-y-20">
+          <h4>５分で作れる</h4>
+          <img src="./images/settings.png" />
+          <p>操作が簡単で、専門的な知識は必要なし。誰でも瞬時に作成・体験ができます。</p>
+        </section>
+        <section class="about-section -translate-y-32">
+          <h4>自由に作成</h4>
+          <img src="./images/customization.png" />
+          <p>2種類のARから選択可能。しかも、機能が豊富で自由にアレンジできます。</p>
+        </section>
+      </div>
+    </div>
+
+    <div class="course maeker">
+      <div>
+        <video src="" />
+      </div>
+      <section class="course-section">
+        <h4 id="Marker">マーカーベースAR</h4>
+        <p class="course-section-text">
+          事前に登録されたマーカーをカメラで認識させ、ARを表示させる技術です。ARマーカーがトリガーとなり、指定された位置にARコンテンツが表示されます。
+          <br />
+          <br />
+          利用シーン<br />
+          「ショッピングモール」・「学校」・「水族館」など屋内の施設に向いています。
+        </p>
+        <a href=""><button class="course-btn">はじめる</button></a>
+      </section>
+    </div>
+    <div class="course location">
+      <section class="course-section">
+        <h4 id="Location">ロケーションベースAR</h4>
+        <p class="course-section-text">
+          予め表示したい場所を設定をGPS情報と連動させて設定しておき、設定された場所に向かってスマートフォンなどの端末をかざした場合にARを表示できます。
+          <br />
+          <br />
+          利用シーン<br />
+          「ゴルフ場」・「建築物・建物」・「観光地」など屋外でのイベントや広い場所に向いている。
+        </p>
+        <a href=""><button class="course-btn">はじめる</button></a>
+      </section>
+      <div>
+        <video src="" />
+      </div>
+    </div>
+    <div id="SingUp" class="singup w-3/4 mx-auto mb-28 flex flex-col justify-around items-center">
+      <h3 class="text-4xl mb-12">Sign Up</h3>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        placeholder="メールアドレス"
+        class="focus:border-blue-500 appearance-none border rounded-2xl w-3/5 h-16 mb-8 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+        autocomplete="email"
+        required
+      />
+      <input
+        id="password"
+        type="password"
+        name="password"
+        placeholder="パスワード"
+        class="focus:border-blue-500 appearance-none border rounded-2xl w-3/5 h-16 mb-8 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+        autocomplete="current-password"
+        required
+      />
+      <button type="submit" value="ユーザー登録" class="w-[250px] h-[60px] text-white bg-black rounded-[20px]">
+        ユーザー登録
+      </button>
+    </div>
+    <footer>
+      <p>&copy; 2022 nocode-AR</p>
+    </footer>
+  </body>
+</html>

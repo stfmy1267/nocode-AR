@@ -14,19 +14,33 @@ let arTypeError = ref(false) //型バリデーションチェック
 
 const showCreatePopUp = () => {
   createPopup.value = !createPopup.value
-  title.value = ''
-  arType.value = ''
+  title.value ,arType.value = ''
   check.value = false
-  titleError.value, (arTypeError.value = false)
+  titleError.value = false
+  arTypeError.value = false
 }
 
 // 全てのスタンプラリーを取得
 const getAllRally = computed(() => store.getters.getAllRally)
 
-const saveRally = () => {
+const sha256 = async (text) => {
+  let now = new Date();
+  console.log(now.getTime().toString())
+  const uint8  = new TextEncoder().encode(text+now.getTime().toString())
+  const digest = await crypto.subtle.digest('SHA-256', uint8)
+  return Array.from(new Uint8Array(digest)).map(v => v.toString(16).padStart(2,'0')).join('')
+}
+sha256('東北公益文科大学スタンプラリー').then(hash => console.log(hash))
+
+// const createUrl = async () => {
+//   await sha256(title.value).then(hash => hash)
+// }
+
+const saveRally = (url) => {
   let stampRally = {
     title: title.value,
     type: arType.value,
+    url:url
   }
   store.commit('saveRally', stampRally)
 }
@@ -42,8 +56,10 @@ const createRally = () => {
     titleError.value = false
     arTypeError.value = true
   } else {
-    saveRally()
-    showCreatePopUp()
+    sha256().then(url=>{
+      saveRally(url)
+      showCreatePopUp()
+    })
   }
 }
 

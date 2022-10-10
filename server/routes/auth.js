@@ -12,6 +12,8 @@ const JWT = require('jsonwebtoken')
 const checkJWT = require('../middleware/checkJWT')
 const model = require('../model/db.js')
 
+const expiryTime = "3d"
+const expiryTimeMs = 259200 * 1000
 // ユーザー新規登録用のAPI
 router.post(
   "/register",
@@ -34,14 +36,19 @@ router.post(
     let hashedPassword = await bcrypt.hash(`${password}`, 10)
     // 5:dbへ保存
     await model.addData("insert into users(email,password) values(?,?)", [email, hashedPassword])
+    const userId = await model.getData("select id from users where email = ?", [email])
+    const id = userId.id
     // 6:クライアントへのJWTの発行
     const token = JWT.sign(
-      { email },
+      { email,id },
       // 任意の文字列
       "SECRET_KEY",
-      { expiresIn: "24h" }
+      { expiresIn: expiryTime }
     );
-    return res.json({ token: token, })
+    return res.json({
+      token: token,
+      expiresIn: expiryTimeMs
+    })
   }
 )
 
@@ -65,16 +72,35 @@ router.post("/login", async (req, res) => {
       },
     )
   }
+  // ユーザーid取得
+  const id = user.id
   // 6:クライアントへのJWTの発行
   const token = JWT.sign(
     // トークンを解読した時にemailだけがかえってくる（一意な値なので大丈夫emailだけで）
-    { email },
+    { email, id},
     // 任意の文字列
     "SECRET_KEY",
-    { expiresIn: "5h" }
+    { expiresIn: expiryTime }
   );
-  res.cookie('token', token, { httpOnly: true });
-  return res.json({ token: token, })
+  return res.json({
+      token: token,
+      expiresIn:expiryTimeMs
+    })
+})
+
+router.get("/refreshToken",checkJWT,(req,res) => {
+  const email= req.user.email;
+  const id= req.user.id;
+  const token = JWT.sign(
+    { email,id},
+    // 任意の文字列
+    "SECRET_KEY",
+    { expiresIn: expiryTime }
+  );
+  return res.json({
+    token: token,
+    expiresIn: expiryTimeMs
+  })
 })
 
 // ユーザーの取得

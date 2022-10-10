@@ -4,7 +4,7 @@ import SideMenu from '../components/SideMenu.vue'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 // let check = ref('')
-// let tpl = ref('')
+let tpl = ref('')
 let previewActive = ref(false)
 
 const chengeModel = (e) => {

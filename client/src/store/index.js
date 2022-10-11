@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '../router'
-import { auth } from './modules';
+import { auth } from './modules'
 // ルート処理用にインポート
 
 export default createStore({
@@ -56,12 +56,12 @@ export default createStore({
           // tokenと有効期限がかえってくる
           console.log(response.data)
           // 今の時間取得
-          let now = new Date();
+          let now = new Date()
           // 今の時間と有効期限の時間を足した時間がトークンが切れる時間
           let expiryTimeMs = now.getTime() + response.data.expiresIn
           let tokenData = {
             token: response.data.token,
-            expiryTimeMs: expiryTimeMs
+            expiryTimeMs: expiryTimeMs,
           }
           // vuexに保存
           commit('updateToken', tokenData.token)
@@ -91,12 +91,12 @@ export default createStore({
         })
         .then(async (response) => {
           // 今の時間取得
-          let now = new Date();
+          let now = new Date()
           // 今の時間と有効期限の時間を足した時間がトークンが切れる時間
           let expiryTimeMs = now.getTime() + response.data.expiresIn
           let tokenData = {
             token: response.data.token,
-            expiryTimeMs: expiryTimeMs
+            expiryTimeMs: expiryTimeMs,
           }
           commit('updateToken', tokenData.token)
           axios.defaults.headers.common['Authorization'] = `Bearer ${tokenData.token}`
@@ -125,17 +125,18 @@ export default createStore({
         .then((response) => {
           // tokenと有効期限がかえってくる
           // 今の時間取得
-          let now = new Date();
+          let now = new Date()
           // 今の時間と有効期限の時間を足す
           let expiryTimeMs = now.getTime() + response.data.expiresIn
           let tokenData = {
             token: response.data.token,
-            expiryTimeMs: expiryTimeMs
+            expiryTimeMs: expiryTimeMs,
           }
           commit('updateToken', tokenData.token)
           commit('setLocalStorage', tokenData)
           axios.defaults.headers.common['Authorization'] = `Bearer ${tokenData.token}`
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err.response)
         })
     },
@@ -147,7 +148,8 @@ export default createStore({
           .then((response) => {
             // スタンプラリ一覧がかえってくる、それをvuexに保存
             commit('saveRally', response.data)
-          }).catch((err) => {
+          })
+          .catch((err) => {
             // DBにスタンプラリーが一個もなければVuexに保存しない
             console.log(err.response.data.message)
           })
@@ -160,5 +162,5 @@ export default createStore({
       commit('setUser', payload)
     },
   },
-  modules: {auth},
+  modules: { auth },
 })

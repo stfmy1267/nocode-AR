@@ -38,6 +38,7 @@ const pushHideButton = () => {
 
 <template>
   <div>
+    <Header />
     <h3 class="text-4xl mt-10 mb-12 text-center">ユーザー登録</h3>
     <form @submit.prevent="register">
       <div class="flex flex-col justify-center items-center mb-4">

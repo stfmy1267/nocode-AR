@@ -3,7 +3,6 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 let user = store.state
-
 </script>
 
 <template>

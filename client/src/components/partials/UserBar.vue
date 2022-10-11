@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import router from '../router'
+import router from '../../router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import { faArrowRightFromBracket, faGear, faTrash } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircleUser,faGear, faArrowRightFromBracket, faTrash )
+library.add(faCircleUser, faGear, faArrowRightFromBracket, faTrash)
 const store = useStore()
 
 let email = ref('ログアウト中')

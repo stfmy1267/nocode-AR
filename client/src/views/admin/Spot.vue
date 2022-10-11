@@ -1,10 +1,30 @@
 <script setup>
-import { ref } from 'vue'
-import SideMenu from '../components/SideMenu.vue'
+import { ref, onMounted } from 'vue'
+import SideMenu from '../../components/layouts/admin/SideMenu.vue'
+import L from 'leaflet'
+import Header from '../../components/layouts/admin/Header.vue'
 
-window.onbeforeunload = (e) => {
-  e.returnValue = '本当にページを閉じますか？'
-}
+let lat = ref()
+let lng = ref()
+onMounted(() => {
+  let map = L.map('map').fitWorld()
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+    tileSize: 512,
+    zoomOffset: -1,
+  }).addTo(map)
+  map.setView([38.575, 136.984], 5)
+  let marker
+  map.on('click', function (e) {
+    if (marker) map.removeLayer(marker) //マーカー削除
+    marker = L.marker(e.latlng).addTo(map) //マーカー追加
+    marker.bindPopup('緯度:' + e.latlng.lat + '<br>経度:' + e.latlng.lng).openPopup()
+    lat.value = e.latlng.lat
+    lng.value = e.latlng.lng
+  })
+})
+
 // ドラックした時のクラスをオン・オフ切り替えるやつ
 let isEnter = ref(false)
 // base64 エンコーディングされた data: URL の文字列が格納される
@@ -56,26 +76,15 @@ const onFileChange = (e) => {
 
 <template>
   <div>
+    <Header />
     <SideMenu />
     <div class="w-2/4 m-auto mt-10 bg-gray-300">
       <h2 class="bg-black text-white text-xl mb-5 px-2">基本情報</h2>
       <div class="w-[90%] m-auto overflow-auto">
         <div class="mb-5">
-          <h3 class="mb-2 px-3">スタンプラリー名</h3>
+          <h3 class="mb-2 px-3">スポット名</h3>
           <form>
             <textarea name="title" rows="1" class="w-full py-1 px-3" />
-          </form>
-        </div>
-        <div class="mb-5">
-          <h3 class="mb-2 px-3">キャッチコピー</h3>
-          <form>
-            <textarea name="cc" rows="1" class="w-full py-1 px-3" />
-          </form>
-        </div>
-        <div class="mb-5">
-          <h3 class="mb-2 px-3">紹介文</h3>
-          <form>
-            <textarea name="introduction" rows="5" class="w-full py-1 px-3" />
           </form>
         </div>
       </div>
@@ -110,6 +119,15 @@ const onFileChange = (e) => {
       </div>
       <div class="w-[90%] m-auto overflow-auto" />
     </div>
+    <div class="w-2/4 m-auto mt-10 mb-14 bg-gray-300">
+      <h2 class="bg-black text-white text-xl px-2">位置情報の設定</h2>
+      <!-- eslint-disable  -->
+      <div id="map" class="h-[400px]"></div>
+      <p>{{ '緯度:' + lat + '経度:' + lng }}</p>
+      <!-- eslint-enable  -->
+      <div class="w-[90%] m-auto overflow-auto" />
+    </div>
+
     <div class="flex justify-center items-center">
       <button class="w-48 h-12 mb-10 btn-gray">保存</button>
     </div>
@@ -118,6 +136,6 @@ const onFileChange = (e) => {
 
 <style lang="scss" scoped>
 .enter {
-  background-color: #666;
+  border: 10px dotted powderblue;
 }
 </style>

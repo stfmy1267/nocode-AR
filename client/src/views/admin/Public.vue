@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import SideMenu from '../components/SideMenu.vue'
+import SideMenu from '../../components/layouts/admin/SideMenu.vue'
+import Header from '../../components/layouts/admin/Header.vue'
 
 const publicURL = 'http://hogehoge.com'
 const testURL = 'http://fhheuahfaewfignkewn.com'
@@ -38,6 +39,7 @@ const copyToClipboard = (text) => {
 
 <template>
   <div>
+    <Header />
     <SideMenu />
     <div class="w-2/4 m-auto mt-10 bg-gray-300 mb-10">
       <h2 class="bg-black text-white text-xl mb-5 px-2">公開情報</h2>

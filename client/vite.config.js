@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
 // import viteImagemin from 'vite-plugin-imagemin'; // 追加
 // https://vitejs.dev/config/
 
@@ -9,12 +8,6 @@ export default defineConfig({
   // base:'/nocode-AR/', //GitHub用
   build: {
     outDir: '../server/public/',
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'rally.html')
-      }
-    }
   },
   server: {
     port: 8888,

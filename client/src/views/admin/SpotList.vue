@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import SideMenu from '../components/SideMenu.vue'
+import SideMenu from '../../components/layouts/admin/SideMenu.vue'
+import Header from '../../components/layouts/admin/Header.vue'
 // ポップアップのON/OFFと入力値のリセット
 let setSpotPopup = ref(false)
 const showCreatePopUp = () => {
@@ -43,6 +44,7 @@ const deleteSpot = (index) => {
 
 <template>
   <div class="flex-1">
+    <Header />
     <SideMenu />
     <div v-if="setSpotPopup" class="w-[60%] h-[70%] z-40 overflow-auto position-center bg-white border border-black">
       <button class="text-4xl absolute top-3 right-5" @click="showCreatePopUp">×</button>

@@ -1,7 +1,8 @@
 <script setup>
+import Header from '../components/layouts/admin/Header.vue'
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import UserBar from '../components/UserBar.vue'
+import UserBar from '../components/partials/UserBar.vue'
 const store = useStore()
 
 // ポップアップのON/OFFと入力値のリセット
@@ -14,7 +15,7 @@ let arTypeError = ref(false) //型バリデーションチェック
 
 const showCreatePopUp = () => {
   createPopup.value = !createPopup.value
-  title.value ,arType.value = ''
+  title.value, (arType.value = '')
   check.value = false
   titleError.value = false
   arTypeError.value = false
@@ -24,13 +25,15 @@ const showCreatePopUp = () => {
 const getAllRally = computed(() => store.getters.getAllRally)
 
 const sha256 = async (text) => {
-  let now = new Date();
+  let now = new Date()
   console.log(now.getTime().toString())
-  const uint8  = new TextEncoder().encode(text+now.getTime().toString())
+  const uint8 = new TextEncoder().encode(text + now.getTime().toString())
   const digest = await crypto.subtle.digest('SHA-256', uint8)
-  return Array.from(new Uint8Array(digest)).map(v => v.toString(16).padStart(2,'0')).join('')
+  return Array.from(new Uint8Array(digest))
+    .map((v) => v.toString(16).padStart(2, '0'))
+    .join('')
 }
-sha256('東北公益文科大学スタンプラリー').then(hash => console.log(hash))
+sha256('東北公益文科大学スタンプラリー').then((hash) => console.log(hash))
 
 // const createUrl = async () => {
 //   await sha256(title.value).then(hash => hash)
@@ -40,7 +43,7 @@ const saveRally = (url) => {
   let stampRally = {
     title: title.value,
     type: arType.value,
-    url:url
+    url: url,
   }
   store.commit('saveRally', stampRally)
 }
@@ -56,7 +59,7 @@ const createRally = () => {
     titleError.value = false
     arTypeError.value = true
   } else {
-    sha256().then(url=>{
+    sha256().then((url) => {
       saveRally(url)
       showCreatePopUp()
     })
@@ -72,6 +75,7 @@ const deleteRally = (index) => {
 </script>
 
 <template>
+  <Header />
   <UserBar />
   <div class="flex-1">
     <div v-if="createPopup" class="w-[70%] h-[80%] z-40 overflow-auto position-center bg-white border border-black">

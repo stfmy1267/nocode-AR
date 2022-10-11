@@ -1,9 +1,9 @@
 <script setup>
-import UserBar from './UserBar.vue'
+import UserBar from '../../partials/UserBar.vue'
 </script>
 
 <template>
-  <UserBar class="-top-10" />
+  <UserBar />
   <div>
     <aside class="fixed overflow-x-hidden z-0 w-[88px] h-full flex justify-center items-start bg-white shadow-md">
       <div class="top-[88px] pt-5">

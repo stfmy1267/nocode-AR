@@ -1,4 +1,5 @@
 <script setup>
+import Header from '../components/layouts/admin/Header.vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import router from '../router'
@@ -39,6 +40,7 @@ const pushHideButton = () => {
 
 <template>
   <div>
+    <Header />
     <h3 class="text-4xl mt-10 mb-12 text-center">ログイン</h3>
     <form @submit.prevent="login">
       <div class="flex flex-col justify-center items-center mb-4">

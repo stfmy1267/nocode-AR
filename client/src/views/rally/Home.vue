@@ -1,32 +1,32 @@
 <script setup>
-import RallyBottomMenu from '../../components/layouts/rally/RallyBottomMenu.vue';
+import RallyBottomMenu from '../../components/layouts/rally/RallyBottomMenu.vue'
 
 let title = 'タイトル'
 let cachcopy = 'ようこそ、タイトルラリーへ。スタンプをためて商品を獲得しよう。'
 let spotInfos = [
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
   {
-    spotImg: "../../../public/images/tpl-1.png",
-    spotName:"spot_name",
+    spotImg: '../../../public/images/tpl-1.png',
+    spotName: 'spot_name',
   },
 ]
 </script>
@@ -77,24 +77,12 @@ let spotInfos = [
     </section>
     <section class="notes">
       <h2>注意事項</h2>
-      <li>
-        危険な場所には行かない
-      </li>
-      <li>
-        人の話を聞くべきときは画面を閉じる。
-      </li>
-      <li>
-        全ては自己責任で楽しむ。
-      </li>
-      <li>
-        誰かにやらせるときにはこれらを守らせる。
-      </li>
-      <li>
-        交通ルール、公共のルールをしっかり守りましょう。
-      </li>
-      <li>
-        歩きスマホは危険です。スマホを確認するときは立ち止まってしましょう。
-      </li>
+      <li>危険な場所には行かない</li>
+      <li>人の話を聞くべきときは画面を閉じる。</li>
+      <li>全ては自己責任で楽しむ。</li>
+      <li>誰かにやらせるときにはこれらを守らせる。</li>
+      <li>交通ルール、公共のルールをしっかり守りましょう。</li>
+      <li>歩きスマホは危険です。スマホを確認するときは立ち止まってしましょう。</li>
     </section>
     <br>
     <br>
@@ -111,7 +99,7 @@ let spotInfos = [
   margin: 0;
   padding: 0;
 }
-ol{
+ol {
   list-style: decimal;
 }
 // メインビジュアル
@@ -123,18 +111,18 @@ div.main_visual {
   text-align: center;
   width: 100%;
   margin-bottom: 3rem;
-  img{
+  img {
     max-height: 400px;
     object-fit: cover;
     margin-bottom: 3rem;
   }
-  div{
-    min-height:100px;
-    h1.title{
+  div {
+    min-height: 100px;
+    h1.title {
       font-size: larger;
       margin-bottom: 1rem;
     }
-    p{
+    p {
       display: block;
       max-width: 300px;
     }
@@ -143,10 +131,10 @@ div.main_visual {
 
 div.spot_list,
 section.how,
-section.notes{
+section.notes {
   width: 80%;
   margin: 0 auto 3rem auto;
-  h2{
+  h2 {
     text-align: center;
     padding: 20px;
     font-size: larger;
@@ -154,23 +142,22 @@ section.notes{
 }
 
 section.how,
-section.notes{
-  li{
+section.notes {
+  li {
     line-height: 2rem;
   }
 }
 
-
 // スポット一覧
-div.spot_list{
+div.spot_list {
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
-  div{
+  div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    div.spot{
+    div.spot {
       margin-bottom: 2rem;
       display: flex;
       flex-direction: column;
@@ -178,24 +165,20 @@ div.spot_list{
       border-radius: 15px;
       width: 40%;
       overflow: hidden;
-      img{
+      img {
         max-height: 150px;
         border-radius: 10px;
       }
-      p{
+      p {
         font-size: large;
       }
     }
   }
 }
 
-
 // @media screen and (max-width: 768px) {
 
 //   @media screen and (max-width: 768px) {
 //   }
 // }
-
-
-
 </style>

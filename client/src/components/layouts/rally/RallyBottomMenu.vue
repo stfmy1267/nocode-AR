@@ -1,7 +1,7 @@
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHouse, faMap, faCube, faStamp } from '@fortawesome/free-solid-svg-icons'
-library.add(faHouse, faMap, faCube, faStamp )
+library.add(faHouse, faMap, faCube, faStamp)
 </script>
 
 <template>
@@ -43,6 +43,7 @@ ul {
   bottom: 0;
   background: white;
   width: 100%;
+  z-index: 999;
 }
 ul li {
   border: solid;

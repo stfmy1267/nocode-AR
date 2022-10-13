@@ -1,6 +1,5 @@
 <script setup>
-import RallyBottomMenu from '../../components/layouts/rally/RallyBottomMenu.vue';
-
+import RallyBottomMenu from '../../components/layouts/rally/RallyBottomMenu.vue'
 </script>
 <template>
   <div>

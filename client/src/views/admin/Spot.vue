@@ -1,7 +1,8 @@
+<!-- eslint-disable no-undef -->
 <script setup>
 import { ref, onMounted } from 'vue'
 import SideMenu from '../../components/layouts/admin/SideMenu.vue'
-import L from 'leaflet'
+// import L from 'leaflet'
 import Header from '../../components/layouts/admin/Header.vue'
 
 let lat = ref()

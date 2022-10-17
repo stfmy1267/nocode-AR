@@ -1,8 +1,8 @@
+<!-- eslint-disable no-undef -->
 <script setup>
 import RallyBottomMenu from '../../components/layouts/rally/RallyBottomMenu.vue'
 import { ref, onMounted } from 'vue'
-import L from 'leaflet'
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faMagnifyingGlass, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 library.add(faMagnifyingGlass, faXmark, faArrowUp)
@@ -41,6 +41,7 @@ let spotsLocation = [
 ]
 
 onMounted(() => {
+  console.log('mouted')
   // 初期設定
   let map = L.map('map').fitWorld()
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,23 +52,24 @@ onMounted(() => {
   }).addTo(map)
   map.setView([38.575, 136.984], 5)
 
-  let searchLayer = new L.LayerGroup()
-  map.addLayer(searchLayer)
+  let markerDesignOptions = {
+    pulsing: true,
+    accuracy: 100, // meters
+    smallIcon: true,
+  };
+
+// var markerBounceOptions = {bounceOnAdd: true}
 
   // クリックで緯度経度表示
   let threshold = 30
-  let marker, circle
+  let marker
 
   // 現在位置の取得と追跡
-  const onLocationFound = (e) => {
-    let radius = e.accuracy / 2
+  const onLocationFound = async (e) => {
     if (marker) map.removeLayer(marker) //マーカー削除
-    marker = L.marker(e.latlng).addTo(map) //マーカー追加
+    marker = L.userMarker(e.latlng,markerDesignOptions).addTo(map) //マーカー追加
     marker.bindPopup('現在地').openPopup()
-    if (circle) map.removeLayer(circle)
-    circle = L.circle(e.latlng, radius).addTo(map)
     map.setView(e.latlng, 13)
-
     spotsLocation.forEach((element) => {
       L.marker([element.lat, element.lng]).addTo(map).bindPopup(element.spot_name)
       let spot = L.latLng(element.lat, element.lng)
@@ -76,6 +78,12 @@ onMounted(() => {
       }
     })
   }
+  map.locate({
+    watch: false,
+    locate: true,
+    setView: true,
+    enableHighAccuracy: true
+});
   // 位置情報を持ってくる関数
   const watchFound = (e) => {
     onLocationFound({
@@ -138,7 +146,7 @@ const openSearch = () => {
     <!--<button class="border-solid border-2">ずる</button>-->
     <div class="w-full h-full">
       <div id="map" class="w-full absolute top-0 left-0 right-0 bottom-0" />
-      <div class="absolute flex w-5/6 z-[600] top-4 left-16">
+      <div class="absolute flex w-5/6 z-[600] top-4 left-14">
         <form class="w-full" @submit.prevent="searchSpot($event)">
           <input
             id="search-text"
@@ -153,26 +161,23 @@ const openSearch = () => {
             size="lg"
             icon="fa-solid fa-magnifying-glass"
             class="mt-1 cursor-pointer"
-            :class="{ '-translate-x-9 ': isActive }"
+            :class="{ '-translate-x-9 ': isActive, search_btn: !isActive }"
             type="submit"
             @click="openSearch()"
           />
+          <font-awesome-icon
+            icon="fa-solid fa-xmark"
+            size="xl"
+            class="mt-2 cursor-pointer"
+            :class="{ hidden: !isActive }"
+            @click="closeSearch()"
+          />
         </form>
-        <font-awesome-icon
-          icon="fa-solid fa-xmark"
-          size="xl"
-          class="mt-2 -translate-x-5 cursor-pointer"
-          :class="{ hidden: !isActive }"
-          @click="closeSearch()"
-        />
       </div>
       <div
         class="search z-[500] absolute top-0 w-full flex flex-col items-stretch overflow-auto bg-gray-400 opacity-75"
-        :class="{ 'h-0': !isActive, 'pt-16': isActive }"
+        :class="{ 'w-0': !isActive, 'pt-16': isActive }"
       >
-        <!--<ul v-for="">
-          <li>{{ "spot" }}</li>
-        </ul>-->
         <ul v-for="(spotLocation, index) in spotsLocation" :key="index" class="w-5/6">
           <li class="flex justify-between" @click="clickList($event)">
             {{ spotLocation.spot_name }}
@@ -192,34 +197,43 @@ const openSearch = () => {
 
 input.open_form {
   visibility: visible;
-  max-width: 83.333333%;
+  width: 83.333333%;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  transition: 5s ease;
+  transition: 0.7s ease;
 }
 input.close_form {
   visibility: hidden;
   width: 0%;
-  border-radius: 0.5rem;
+  border-radius: 0.7rem;
   padding: 0.5rem;
-  transition: 2ms;
+  transition: 0.7ms ease;
 }
 
 li {
   position: relative;
   list-style: none;
   width: 80%;
-  left: 4rem;
+  left: 3.5rem;
   padding: 0.7rem;
   cursor: pointer;
   border: 2px 0 2px 0 solid;
   color: black;
   font-weight: 500;
+  white-space: nowrap;
   &:hover {
     color: blue;
   }
 }
 .search {
   max-height: calc(100vh - 64px);
+  transition: all 0.7s ease;
+}
+.search_btn {
+  border-width: 2px;
+  border-color: rgb(156 163 175);
+  border-radius: 0.5rem;
+  padding: 4px;
+  background: #fff;
 }
 </style>

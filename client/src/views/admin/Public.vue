@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import SideMenu from '../../components/layouts/admin/SideMenu.vue'
 import Header from '../../components/layouts/admin/Header.vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCopy } from '@fortawesome/free-regular-svg-icons'
+library.add(faCopy)
 
 const publicURL = 'http://hogehoge.com'
 const testURL = 'http://fhheuahfaewfignkewn.com'
@@ -48,11 +51,7 @@ const copyToClipboard = (text) => {
           <h3 class="mb-2 px-3">テスト用URL</h3>
           <div class="w-full py-1 px-3 bg-white h-12 flex justify-between items-center relative">
             <p>http://fhheuahfaewfignkewn.com</p>
-            <img
-              class="h-8 object-cover cursor-pointer hover:h-10 hover:transition-[.3s]"
-              src="../assets/copy-two-paper-sheets-interface-symbol.png"
-              @click="copyToClipboard(testURL)"
-            >
+            <font-awesome-icon icon="fa-regular fa-copy" class="h-8 object-cover cursor-pointer transition-[.3s] hover:h-10 hover:transition-[.3s]" @click="copyToClipboard(testURL)" />
             <span class="absolute z-10 -top-5 right-0 text-sm opacity-0 transition-[.3s]" :class="{ copyAction: copyTest }">
               コピーしました
             </span>
@@ -62,11 +61,7 @@ const copyToClipboard = (text) => {
           <h3 class="mb-2 px-3">公開用URL</h3>
           <div class="w-full py-1 px-3 bg-white h-12 flex justify-between items-center relative">
             <p>https://hogehoge.com</p>
-            <img
-              class="h-8 object-cover cursor-pointer hover:h-10 hover:transition-[.3s]"
-              src="../assets/copy-two-paper-sheets-interface-symbol.png"
-              @click="copyToClipboard(publicURL)"
-            >
+            <font-awesome-icon icon="fa-regular fa-copy" class="h-8 object-cover cursor-pointer transition-[.3s] hover:h-10 hover:transition-[.3s]" @click="copyToClipboard(publicURL)" />
             <span class="absolute z-10 -top-5 right-0 text-sm opacity-0 transition-[.3s]" :class="{ copyAction: copyPublic }">
               コピーしました
             </span>

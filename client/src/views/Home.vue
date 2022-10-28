@@ -56,7 +56,7 @@ export default {
 
     <div class="mb-20 h-[580px] w-full flex justify-around content-around items-center">
       <h2 class="text-4xl leading-[3rem]">誰でも簡単に作れる<br>WebARスタンプラリー</h2>
-      <img src="../assets/Mockup-1.png" alt="メイン画像" class="w-64">
+      <img src="" alt="メイン画像" class="w-64">
     </div>
     <div id="About" class="w-2/3 mx-auto flex-col overflow-auto mb-12">
       <h3 class="text-4xl mb-10">About</h3>
@@ -64,7 +64,7 @@ export default {
       <div class="flex flex-col items-end">
         <section class="about-section -translate-y-10">
           <h4>ダウンロード不要</h4>
-          <img src="../assets/augmented-reality.png">
+          <img src="">
           <p>ブラウザでアクセスするだけで参加可能。専用アプリのダウンロードは必要ありません。</p>
         </section>
         <section class="about-section mr-auto -translate-y-20">
@@ -74,7 +74,7 @@ export default {
         </section>
         <section class="about-section -translate-y-32">
           <h4>自由に作成</h4>
-          <img src="../assets/customization.png" alt="">
+          <img src="" alt="">
           <p>2種類のARから選択可能。しかも、機能が豊富で自由にアレンジできます。</p>
         </section>
       </div>

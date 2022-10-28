@@ -1,5 +1,8 @@
 <script setup>
 import UserBar from '../../partials/UserBar.vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faGear, faCube, faLocationDot, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+library.add( faGear, faCube, faLocationDot, faPaperPlane )
 </script>
 
 <template>
@@ -10,25 +13,22 @@ import UserBar from '../../partials/UserBar.vue'
         <ul>
           <li>
             <router-link to="/edit" replace exact-active-class="link--active">
-              <img src="../assets/settings.png">
+              <font-awesome-icon icon="fa-solid fa-gear" size="xl" />
             </router-link>
           </li>
           <li>
             <router-link to="/setting-ar" replace exact-active-class="link--active">
-              <img src="../assets/augmented-reality.png">
+              <font-awesome-icon icon="fa-solid fa-cube" size="xl" />
             </router-link>
           </li>
           <li>
             <router-link to="/spotlist" replace exact-active-class="link--active">
-              <img src="../assets/pin.png">
+              <font-awesome-icon icon="fa-solid fa-location-dot" size="xl" />
             </router-link>
           </li>
           <li>
-            <router-link
-              to="/public" replace exact-active-class="link--active"
-              class="link-active"
-            >
-              <img src="../assets/new-release.png">
+            <router-link to="/public" replace exact-active-class="link--active">
+              <font-awesome-icon icon="fa-solid fa-paper-plane" size="xl" />
             </router-link>
           </li>
         </ul>

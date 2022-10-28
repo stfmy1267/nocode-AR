@@ -56,9 +56,9 @@ onMounted(() => {
     pulsing: true,
     accuracy: 100, // meters
     smallIcon: true,
-  };
+  }
 
-// var markerBounceOptions = {bounceOnAdd: true}
+  // var markerBounceOptions = {bounceOnAdd: true}
 
   // クリックで緯度経度表示
   let threshold = 30
@@ -67,7 +67,7 @@ onMounted(() => {
   // 現在位置の取得と追跡
   const onLocationFound = async (e) => {
     if (marker) map.removeLayer(marker) //マーカー削除
-    marker = L.userMarker(e.latlng,markerDesignOptions).addTo(map) //マーカー追加
+    marker = L.userMarker(e.latlng, markerDesignOptions).addTo(map) //マーカー追加
     marker.bindPopup('現在地').openPopup()
     map.setView(e.latlng, 13)
     spotsLocation.forEach((element) => {
@@ -82,8 +82,8 @@ onMounted(() => {
     watch: false,
     locate: true,
     setView: true,
-    enableHighAccuracy: true
-});
+    enableHighAccuracy: true,
+  })
   // 位置情報を持ってくる関数
   const watchFound = (e) => {
     onLocationFound({
@@ -181,7 +181,7 @@ const openSearch = () => {
         <ul v-for="(spotLocation, index) in spotsLocation" :key="index" class="w-5/6">
           <li class="flex justify-between" @click="clickList($event)">
             {{ spotLocation.spot_name }}
-            <font-awesome-icon icon="fa-solid fa-arrow-up" class="ransform -rotate-45" />
+            <font-awesome-icon icon="fa-solid fa-arrow-up" class="transform -rotate-45" />
           </li>
         </ul>
       </div>

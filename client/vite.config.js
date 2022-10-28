@@ -13,6 +13,7 @@ export default defineConfig({
     port: 8888,
     proxy: 'http://localhost:3000'
   },
+
   // pages:{
   //   top: {
   //     entry: 'src/top/main.js', // エントリーポイントとなるjs
@@ -26,6 +27,13 @@ export default defineConfig({
   //   },
   // },
   plugins: [vue()]
+  // plugins: [vue({
+  //   template: {
+  //     compilerOptions: {
+  //       isCustomElement: () => true
+  //     }
+  //   }
+  // })]
   //   // 画像圧縮
   //   viteImagemin({
   //     gifsicle: {

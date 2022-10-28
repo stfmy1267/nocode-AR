@@ -1,0 +1,88 @@
+@use '_bottom-menu.scss';
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ol {
+  list-style: decimal;
+}
+// メインビジュアル
+div.main_visual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 3rem;
+  img {
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 3rem;
+  }
+  div {
+    min-height: 100px;
+    h1.title {
+      font-size: larger;
+      margin-bottom: 1rem;
+    }
+    p {
+      display: block;
+      max-width: 300px;
+    }
+  }
+}
+
+div.spot_list,
+section.how,
+section.notes {
+  width: 80%;
+  margin: 0 auto 3rem auto;
+  h2 {
+    text-align: center;
+    padding: 20px;
+    font-size: larger;
+  }
+}
+
+section.how,
+section.notes {
+  li {
+    line-height: 2rem;
+  }
+}
+
+// スポット一覧
+div.spot_list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    div.spot {
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 15px;
+      width: 40%;
+      overflow: hidden;
+      img {
+        max-height: 150px;
+        border-radius: 10px;
+      }
+      p {
+        font-size: large;
+      }
+    }
+  }
+}
+
+// @media screen and (max-width: 768px) {
+
+//   @media screen and (max-width: 768px) {
+//   }
+// }

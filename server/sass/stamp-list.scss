@@ -1,0 +1,92 @@
+@use "_bottom-menu.scss";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ol {
+  list-style: decimal;
+}
+// メインビジュアル
+div.main_visual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 3rem;
+  img {
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 3rem;
+  }
+  div {
+    min-height: 100px;
+    h1.title {
+      font-size: larger;
+      margin-bottom: 1rem;
+    }
+    p {
+      display: block;
+      max-width: 300px;
+    }
+  }
+}
+
+div.spot_list {
+  width: 80%;
+  height: auto;
+  margin: 0 auto 3rem auto;
+  h2 {
+    text-align: center;
+    padding: 20px;
+    font-size: larger;
+  }
+  div {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    div.spot_container {
+      width: 40%;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      &::before {
+        content: "";
+        padding-top: 100%;
+      }
+      img {
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        // filter: blur(10px);
+        visibility:hidden;
+        animation: stamp-anime 2s paused both;
+        animation-play-state: running;
+      }
+      p {
+        margin-top: 10px;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+@keyframes stamp-anime {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: rotate(-30deg) scale(2.5);
+  }
+  30% {
+    visibility: visible;
+    opacity: 0.8;
+    transform: rotate(5deg) scale(1.04);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}

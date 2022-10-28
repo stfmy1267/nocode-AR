@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/stamp-list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="main_visual">
+    <img src="" alt="メイン画像">
+    <div>
+      <h1 class="title">{{ title }}</h1>
+      <p>{{ cachcopy }}</p>
+    </div>
+  </div>
+
+  <div class="spot_list">
+    <h2>獲得スタンプ一覧</h2>
+    <div>
+      <div>
+        <div class="spot_container">
+          <img src="/images/tpl-2.png" alt="">
+          <p>スポット名</p>
+        </div>
+        <div class="spot_container">
+          <img src="/images/tpl-1.png" alt="">
+          <p>スポット名</p>
+        </div>
+        <div class="spot_container">
+          <img src="/images/tpl-3.png" alt="">
+          <p>スポット名</p>
+        </div>
+        <div class="spot_container">
+          <img src="/images/tpl-3.png" alt="">
+          <p>スポット名</p>
+        </div>
+        <div class="spot_container">
+          <img src="/images/tpl-3.png" alt="">
+          <p>スポット名</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <%- include('_bottom-menu') %>
+</body>
+</html>
+
+

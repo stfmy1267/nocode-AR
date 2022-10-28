@@ -1,0 +1,168 @@
+ul.bottom-menu {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: white;
+  width: 100%;
+  padding: auto;
+  z-index: 100;
+}
+ul.bottom-menu li {
+  border: solid;
+  border-width: 1px 1px 0px 0px;
+  list-style: none;
+  width: 100%;
+  text-align: center;
+}
+ul.bottom-menu li:last-of-type {
+  border-width: 1px 0px 0px 0px;
+}
+ul.bottom-menu li a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+ul.bottom-menu li a i {
+  color: black;
+  margin: 7px 0px;
+  font-size: 1.5rem;
+}
+ul.bottom-menu li span {
+  display: block;
+  position: relative;
+  font-size: 16px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ol {
+  list-style: decimal;
+}
+
+div.main_visual {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+div.main_visual img {
+  max-height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 3rem;
+}
+div.main_visual div {
+  min-height: 100px;
+}
+div.main_visual div h1.title {
+  font-size: larger;
+  margin-bottom: 1rem;
+}
+div.main_visual div p {
+  display: block;
+  max-width: 300px;
+}
+
+div.spot_list,
+section.how,
+section.notes {
+  width: 80%;
+  margin: 0 auto 3rem auto;
+}
+div.spot_list h2,
+section.how h2,
+section.notes h2 {
+  text-align: center;
+  padding: 20px;
+  font-size: larger;
+}
+
+section.how li,
+section.notes li {
+  line-height: 2rem;
+}
+
+div.spot_list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 3rem;
+}
+div.spot_list div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+div.spot_list div div.spot {
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 15px;
+  width: 40%;
+  overflow: hidden;
+}
+div.spot_list div div.spot img {
+  max-height: 150px;
+  border-radius: 10px;
+}
+div.spot_list div div.spot p {
+  font-size: large;
+}/*# sourceMappingURL=top.css.map */

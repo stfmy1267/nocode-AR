@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+div.container {
+  display: block;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+div.container div.first_circle {
+  width: 25vmin;
+  height: 25vmin;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(45%);
+          transform: translateX(-50%) translateY(45%);
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  z-index: 20;
+  -webkit-transition-delay: 0.7s;
+          transition-delay: 0.7s;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+div.container div.first_circle:hover {
+  background-color: #000;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+div.container div.first_circle div.btn_container {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+}
+div.container div.first_circle div.btn_container span {
+  border-radius: 5px;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #fff;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+div.container div.first_circle div.btn_container .top {
+  top: 0px;
+}
+div.container div.first_circle div.btn_container .middle {
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+div.container div.first_circle div.btn_container .bottom {
+  top: 50%;
+}
+div.container div.active {
+  background-color: #000;
+}
+div.container div.active div.btn_container .top {
+  position: absolute;
+  top: 30%;
+  -webkit-transform: translateY(-50%) rotate(405deg);
+          transform: translateY(-50%) rotate(405deg);
+}
+div.container div.active div.btn_container .middle {
+  opacity: 0;
+}
+div.container div.active div.btn_container .bottom {
+  position: absolute;
+  top: 30%;
+  -webkit-transform: translateY(-50%) rotate(495deg);
+          transform: translateY(-50%) rotate(495deg);
+}
+div.container div.middle_circle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transform: translateX(-50%) translateY(40%) rotate(-100deg);
+          transform: translateX(-50%) translateY(40%) rotate(-100deg);
+  z-index: 10;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+div.container div.middle_circle i {
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  padding: 5%;
+}
+div.container div.middle_circle i:hover {
+  background-color: rgba(255, 0, 102, 0.6);
+}
+div.container div.middle_circle i:nth-of-type(1) {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.middle_circle i:nth-of-type(2) {
+  position: fixed;
+  top: 43%;
+  left: 15%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.middle_circle i:nth-of-type(3) {
+  position: fixed;
+  top: 43%;
+  left: 85%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.middle_circle.middle_circle_open {
+  opacity: 1;
+  width: 50vmin;
+  height: 50vmin;
+  -webkit-transform: translateX(-50%) translateY(40%) rotate(0deg);
+          transform: translateX(-50%) translateY(40%) rotate(0deg);
+}
+div.container div.last_circle {
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transform: translate(-50%, 45%);
+          transform: translate(-50%, 45%);
+  z-index: 1;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+div.container div.last_circle a {
+  text-decoration: none;
+  opacity: 0;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  padding: 3%;
+}
+div.container div.last_circle a:hover {
+  background-color: rgba(0, 247, 255, 0.5);
+}
+div.container div.last_circle a:nth-of-type(1) {
+  position: fixed;
+  top: 15%;
+  left: 30%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.last_circle a:nth-of-type(2) {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.last_circle a:nth-of-type(3) {
+  position: fixed;
+  top: 15%;
+  left: 70%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.last_circle a:nth-of-type(4) {
+  position: fixed;
+  top: 50%;
+  left: 85%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+div.container div.last_circle_open {
+  opacity: 1;
+  width: 80vmin;
+  height: 80vmin;
+}
+div.container div.last_circle_open a {
+  opacity: 1;
+}/*# sourceMappingURL=test.css.map */

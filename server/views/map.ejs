@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/map.css">
+  <link rel="stylesheet" href="/leaflet.usermarker.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  <script src="/leaflet.usermarker.js"></script>
+  <script src="/bouncemarker.js"></script>
+  <title>スタンプラリー名</title>
+</head>
+<body>
+    <!--<button class="border-solid border-2">ずる</button>-->
+      <div id="map"></div>
+      <div class="search-wrapper">
+        <form>
+          <input
+            id="search-text"
+            class="close-form"
+            v-model="search"
+            type="text"
+            name="text"
+            enterkeyhint="search"
+            placeholder="search"
+          />
+          <i
+            id="search-icon"
+            class="fa-solid fa-magnifying-glass fa-lg search-btn"
+            type="submit"
+          ></i>
+        </form>
+        <i
+          id="back-btn"
+          class="fa-solid fa-xmark fa-xl back-btn-hidden"
+        ></i>
+      </div>
+      <div
+        class="close-search-list "
+      >
+        <ul class="spot-wrapper">
+          <% spotLocations.forEach((spotLocation)=>{  %>
+          <li class="spot-list">
+            <%= spotLocation.spot_name  %>
+            <i class="fa-solid fa-arrow-up" class="ransform -rotate-45"></i>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+      <%- include('_bottom-menu') %>
+  </html>
+<script>
+  let spotsLocation = JSON.parse('<%- JSON.stringify(spotLocations) %>')
+
+$("#search-icon").click(() => {
+  $("#search-text").toggleClass("open-form");
+  $("#search-text").toggleClass("close-form");
+  $("#search-icon").toggleClass("search-btn");
+  $("#search-icon").toggleClass("search-fnc");
+  $(".close-search-list").toggleClass("open-search-list");
+  $(".opne-search-list").toggleClass("close-search-list");
+  $("#back-btn").toggleClass("back-btn-hidden");
+  $("#back-btn").toggleClass("back-btn-visvile");
+  $("#search-text").val('');
+})
+
+$("#back-btn").click(() => {
+  $("#search-text").toggleClass("open-form");
+  $("#search-text").toggleClass("close-form");
+  $("#search-icon").toggleClass("search-btn");
+  $("#search-icon").toggleClass("search-fnc");
+  $(".close-search-list").toggleClass("open-search-list");
+  $(".opne-search-list").toggleClass("close-search-list");
+  $("#back-btn").toggleClass("back-btn-hidden");
+  $("#back-btn").toggleClass("back-btn-visvile");
+  $("#search-text").val('');
+})
+
+
+let map = L.map('map').fitWorld()
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+    tileSize: 512,
+    zoomOffset: -1,
+  }).addTo(map)
+  map.setView([38.575, 136.984], 5)
+
+  let markerDesignOptions = {
+    pulsing: true,
+    accuracy: 100, // meters
+    smallIcon: true,
+  }
+  // var markerBounceOptions = {bounceOnAdd: true}
+  // クリックで緯度経度表示
+  let threshold = 30
+  let marker
+
+  // 現在位置の取得と追跡
+  const onLocationFound = async (e) => {
+    if (marker) map.removeLayer(marker) //マーカー削除
+    marker = L.userMarker(e.latlng, markerDesignOptions).addTo(map) //マーカー追加
+    marker.bindPopup('現在地').openPopup()
+    map.setView(e.latlng, 13)
+    spotsLocation.forEach((element) => {
+      L.marker([element.lat, element.lng]).addTo(map).bindPopup(element.spot_name)
+      let spot = L.latLng(element.lat, element.lng)
+      if (spot.distanceTo(e.latlng) < threshold) {
+        window.location.href = 'https://www.yatex.org/gitbucket/Fumiya238/AR-project/pages/AR/AR-location1.html'
+      }
+    })
+  }
+  map.locate({
+    watch: false,
+    locate: true,
+    setView: true,
+    enableHighAccuracy: true,
+  })
+  // 位置情報を持ってくる関数
+  const watchFound = (e) => {
+    onLocationFound({
+      latlng: L.latLng([e.coords.latitude, e.coords.longitude]),
+      accuracy: e.coords.accuracy,
+    })
+  }
+
+  const onLocationError = (e) => alert(e.message)
+  navigator.geolocation.watchPosition(watchFound, onLocationError)
+
+  let searchText;
+  $('.spot-list').click((e)=>{
+    searchText = e.target.innerText
+    $("#search-text").val(e.target.innerText);
+  })
+  $('#search-icon').click(()=>{
+    spotsLocation.forEach((element) => {
+      if (element.spot_name === searchText) {
+        map.setView([element.lat, element.lng], 15)
+      }
+    })
+  })
+  $("#search-icon").keypress((e) => {
+    if (e.keyCode === 13) {
+      spotsLocation.forEach((element) => {
+      if (element.spot_name === searchText) {
+        map.setView([element.lat, element.lng], 15)
+      }
+    })
+    }
+  })
+</script>

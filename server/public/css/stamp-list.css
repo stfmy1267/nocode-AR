@@ -1,0 +1,187 @@
+ul.bottom-menu {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: white;
+  width: 100%;
+  padding: auto;
+  z-index: 100;
+}
+ul.bottom-menu li {
+  border: solid;
+  border-width: 1px 1px 0px 0px;
+  list-style: none;
+  width: 100%;
+  text-align: center;
+}
+ul.bottom-menu li:last-of-type {
+  border-width: 1px 0px 0px 0px;
+}
+ul.bottom-menu li a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+ul.bottom-menu li a i {
+  color: black;
+  margin: 7px 0px;
+  font-size: 1.5rem;
+}
+ul.bottom-menu li span {
+  display: block;
+  position: relative;
+  font-size: 16px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ol {
+  list-style: decimal;
+}
+
+div.main_visual {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+div.main_visual img {
+  max-height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 3rem;
+}
+div.main_visual div {
+  min-height: 100px;
+}
+div.main_visual div h1.title {
+  font-size: larger;
+  margin-bottom: 1rem;
+}
+div.main_visual div p {
+  display: block;
+  max-width: 300px;
+}
+
+div.spot_list {
+  width: 80%;
+  height: auto;
+  margin: 0 auto 3rem auto;
+}
+div.spot_list h2 {
+  text-align: center;
+  padding: 20px;
+  font-size: larger;
+}
+div.spot_list div {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+div.spot_list div div.spot_container {
+  width: 40%;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+div.spot_list div div.spot_container::before {
+  content: "";
+  padding-top: 100%;
+}
+div.spot_list div div.spot_container img {
+  width: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  visibility: hidden;
+  -webkit-animation: stamp-anime 2s paused both;
+          animation: stamp-anime 2s paused both;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+div.spot_list div div.spot_container p {
+  margin-top: 10px;
+  font-size: 1.3rem;
+}
+
+@-webkit-keyframes stamp-anime {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    -webkit-transform: rotate(-30deg) scale(2.5);
+            transform: rotate(-30deg) scale(2.5);
+  }
+  30% {
+    visibility: visible;
+    opacity: 0.8;
+    -webkit-transform: rotate(5deg) scale(1.04);
+            transform: rotate(5deg) scale(1.04);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes stamp-anime {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    -webkit-transform: rotate(-30deg) scale(2.5);
+            transform: rotate(-30deg) scale(2.5);
+  }
+  30% {
+    visibility: visible;
+    opacity: 0.8;
+    -webkit-transform: rotate(5deg) scale(1.04);
+            transform: rotate(5deg) scale(1.04);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}/*# sourceMappingURL=stamp-list.css.map */

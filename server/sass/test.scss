@@ -1,0 +1,194 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+div.container {
+  display: block;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  div.first_circle {
+    width: 25vmin;
+    height: 25vmin;
+    position: fixed;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%) translateY(45%);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    z-index: 20;
+    transition-delay: 0.7s;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+    div.btn_container {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40%;
+      height: 40%;
+      // background-color: aqua;
+      span {
+        border-radius: 5px;
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background: #fff;
+        transition: all 0.7s ease;
+      }
+      .top {
+        top: 0px;
+      }
+      .middle {
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .bottom {
+        top: 50%;
+      }
+    }
+  }
+  div.active {
+    background-color: #000;
+    div.btn_container {
+      .top {
+        position: absolute;
+        top: 30%;
+        transform: translateY(-50%) rotate(405deg);
+        // transform: translateY(10px) translateX(0px)
+      }
+      .middle {
+        opacity: 0;
+      }
+      .bottom {
+        position: absolute;
+        top: 30%;
+        transform: translateY(-50%) rotate(495deg);
+      }
+    }
+  }
+
+  div.middle_circle {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: fixed;
+    bottom: 0%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: translateX(-50%) translateY(40%) rotate(-100deg);
+    z-index: 10;
+    transition: all 0.7s ease;
+    i {
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      padding: 5%;
+      &:hover {
+        background-color: rgba(255, 0, 102, 0.6);
+      }
+      &:nth-of-type(1) {
+        position: fixed;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      &:nth-of-type(2) {
+        position: fixed;
+        top: 43%;
+        left: 15%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      &:nth-of-type(3) {
+        position: fixed;
+        top: 43%;
+        left: 85%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+  }
+  div.middle_circle {
+    &.middle_circle_open {
+      opacity: 1;
+      width: 50vmin;
+      height: 50vmin;
+      transform: translateX(-50%) translateY(40%) rotate(0deg);
+    }
+  }
+
+  div.last_circle {
+    // opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, 45%);
+    z-index: 1;
+    transition: all 0.7s ease;
+    a {
+      text-decoration: none;
+        opacity: 0;
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        border-radius: 50%;
+        padding: 3%;
+        &:hover {
+          background-color: rgba(0, 247, 255, 0.5);
+        }
+        &:nth-of-type(1) {
+          position: fixed;
+          top: 15%;
+          left: 30%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+        &:nth-of-type(2) {
+          position: fixed;
+          top: 10%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+        &:nth-of-type(3) {
+          position: fixed;
+          top: 15%;
+          left: 70%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+        &:nth-of-type(4) {
+          position: fixed;
+          top: 50%;
+          left: 85%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+
+    }
+  }
+  div.last_circle_open {
+    opacity: 1;
+    width: 80vmin;
+    height: 80vmin;
+    a {
+      opacity: 1;
+    }
+  }
+}

@@ -4,7 +4,8 @@ const path = require('path');
 const dotenv = require('dotenv')
 const cors = require('cors')
 const auth = require('./routes/auth')
-const rally = require('./routes/rally')
+const admin = require('./routes/admin')
+const stampRally = require('./routes/stamp-rally')
 
 // デプロイ用ポート番号 herokuが用意してくれている (process.env.PORT) || デバック用ポート番号 (3000)
 const port = process.env.PORT || 3000
@@ -12,9 +13,10 @@ const port = process.env.PORT || 3000
 dotenv.config()
 
 app.use(express.json());
-
+// express に ejs のテンプレートエンジンを設定
+app.set("view engine", "ejs");
 // Buildしたときに生成されるpublicディレクトリ（静的アセットファイル）を提供する
-// app.use(express.static(path.join(__dirname ,'/public')))
+app.use(express.static(path.join(__dirname ,'/public')))
 
 // 開発環境のCORS対策
 if (process.env.NODE_ENV !== 'production') {
@@ -22,7 +24,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use("/api/users",auth)
-app.use("/api/user/",rally)
+app.use("/api/user/",admin)
+app.use("/stamp-rally/",stampRally)
+
 // app.get('/edit', (req, res) => {
 //   res.sendFile(path.join(__dirname,'/public/'))
 // })

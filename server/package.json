@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": "webpack serve --config webpack.dev.js",
+    "watch": "webpack --watch --config webpack.dev.js"
   },
   "keywords": [],
   "author": "",
@@ -14,14 +16,39 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "serve-static": "^1.15.0",
     "sqlite3": "^5.1.1",
-    "vue": "^3.2.37"
+    "style-loader": "^3.3.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
-  }
+    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "autoprefixer": "^10.4.12",
+    "css-declaration-sorter": "^6.3.1",
+    "css-loader": "^6.7.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "nodemon": "^2.0.20",
+    "postcss": "^8.4.18",
+    "postcss-loader": "^7.0.1",
+    "postcss-normalize-charset": "^5.1.0",
+    "postcss-sort-media-queries": "^4.3.0",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "template-ejs-loader": "^0.9.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "browserslist": [
+    "last 3 versions",
+    "> 5%",
+    "iOS >= 9.0",
+    "Android >= 5",
+    "Firefox ESR"
+  ]
 }

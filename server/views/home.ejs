@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/top.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="main_visual">
+    <img src="" alt="メイン画像">
+    <div>
+      <h1 class="title">{{ title }}</h1>
+      <p>{{ cachcopy }}</p>
+    </div>
+  </div>
+
+  <div class="spot_list">
+    <h2>スポット一覧</h2>
+    <div>
+      <!-- <div v-for="(spotinfo, index) in spotInfos" :key="index" class="spot">
+        <img :src="spotinfo.spotImg">
+        <p>{{ spotinfo.spotName }}</p> -->
+      </div>
+    </div>
+  </div>
+
+  <section class="how">
+    <h2>使い方</h2>
+    <ol>
+      <li>はじめに、松ヶ岡開墾場に移動してください。</li>
+      <br>
+      <li>
+        画面下の「マップ」のボタンを押します。 <br>
+        すると、スタンプラリーマップと書いてあるページに飛びます。 マップには、ラリーポイントが6つ表示されます。
+      </li>
+      <br>
+      <li>
+        「スタート」ボタンを押すと、現在地が表示されます。 ラリーポイントに近づくとARページに移動し、
+        この時に、「カメラを許可するか」と表示される時がありますが、
+        「許可する」と押しましょう。あたりを見渡すとましろちゃんを見ることができるはずです。
+      </li>
+      <br>
+      <li>
+        ましろちゃんを発見したら、真ん中のカーソルをましろちゃんに合わせてください。
+        すると、施設情報の表示、スタンプの獲得、カメラ撮影ができるようになります。
+      </li>
+      <br>
+      <li>スタンプを6つためてコンプリートを目指そう!</li>
+    </ol>
+  </section>
+  <section class="notes">
+    <h2>注意事項</h2>
+    <li>危険な場所には行かない</li>
+    <li>人の話を聞くべきときは画面を閉じる。</li>
+    <li>全ては自己責任で楽しむ。</li>
+    <li>誰かにやらせるときにはこれらを守らせる。</li>
+    <li>交通ルール、公共のルールをしっかり守りましょう。</li>
+    <li>歩きスマホは危険です。スマホを確認するときは立ち止まってしましょう。</li>
+  </section>
+  <br>
+  <br>
+  <%- include('_bottom-menu') %>
+</body>
+</html>
+
+

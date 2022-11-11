@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -7,8 +10,15 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-  <link rel="stylesheet" href="/css/ar.css" />
+  <link rel="stylesheet" href="/css/test.css" />
+  <script
+    src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"
+  ></script>
   <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <body style="margin: 0px; overflow: hidden">
     <a-scene embedded arjs>
@@ -29,62 +39,48 @@
         ></a-gui-cursor>
       </a-camera>
     </a-scene>
-    <div class="ui-wrapper">
-      <div id="inner-circle" class="circle">
-        <div class="menu">
-          <h1>AR</h1>
-          <!-- <h1>CITY OF<br>ALISO VIEJO</h1> -->
-          <p>
-            <span>Wednessday</span>
-            <br />
-            <span style="margin-bottom: 10px">January 15, 2022</span>
-            <span style="font-size: larger">20℃ ☁</span>
-          </p>
+    <div class="container">
+      <div class="first_circle">
+        <div class="btn_container">
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+          <!-- <i class="fa-solid fa-x"></i> -->
         </div>
       </div>
-      <div id="outer-circle">
+
+      <div class="middle_circle">
+        <i class="fa-solid fa-check"></i>
+        <i class="fa-solid fa-ellipsis"></i>
+        <!-- <i class="fa-solid fa-backward"></i> -->
+        <i class="fa-solid fa-camera"></i>
+      </div>
+
+      <div class="last_circle">
         <a href="/stamp-rally/home">
-          <li><i class="fa-solid fa-house"></i>HOME</li>
+          <i class="fa-solid fa-house"></i>
         </a>
         <a href="/stamp-rally/map">
-          <li><i class="fa-solid fa-map"></i>MAP</li>
-        </a>
-        <a href="">
-          <li><i class="fa-solid fa-camera"></i>CAMERA</li>
+          <i class="fa-solid fa-map"></i>
         </a>
         <a href="/stamp-rally/stamp-list">
-          <li><i class="fa-solid fa-check"></i>GET STAMP</li>
+          <i class="fa-solid fa-stamp"></i>
         </a>
+        <!-- <i class="fa-solid fa-download"></i> -->
+        <!-- <i class="fa-solid fa-trash"></i> -->
       </div>
     </div>
   </body>
   <script defer>
-    const innerCircle = document.getElementById("inner-circle");
-    const outerCircle = document.getElementById("outer-circle");
-    let innerCircleWidth = innerCircle.offsetWidth;
-    let outerCircleWidth = outerCircle.offsetWidth;
-    let innerCircleHeight = innerCircleWidth * 2;
-    let outerCircleHeight = outerCircleWidth * 2;
-    innerCircle.style.height = innerCircleHeight + "px";
-    outerCircle.style.height = outerCircleHeight + "px";
-    // const observer = new MutationObserver(() => {
-    //   //要素のサイズ確認
-    //   const width = innerCircle.getBoundingClientRect().width;
-    //   console.log("size(w): ", width);
-    // });
-    // observer.observe(innerCircle, {
-    //   attriblutes: true,
-    //   attributeFilter: ["style"],
-    // });
-
-    // const canvas = document.getElementsByTagName('canvas')
-    // const video = document.getElementsByTagName('video')
-    // console.log(canvas)
-    // console.log(video)
-    // function blurVideo(blur) {
-    //   canvas.getContext("2d").drawImage(video, 0, 0, cw, ch);
-    //   StackBlur.canvasRGB(canvas, 0, 0, cw, ch, blurLevel);
-    //   requestAnimationFrame(blurVideo);
-    // }
+    window.onload = () => {
+      $(".first_circle").click(() => {
+        $(".first_circle").toggleClass("active");
+        $(".middle_circle").toggleClass("middle_circle_open");
+        $(".last_circle").removeClass("last_circle_open");
+      });
+      $(".fa-ellipsis").click(() => {
+        $(".last_circle").toggleClass("last_circle_open");
+      });
+    };
   </script>
 </html>

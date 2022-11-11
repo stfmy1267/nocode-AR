@@ -5,6 +5,7 @@ import router from '../../router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import { faArrowRightFromBracket, faGear, faTrash } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
 library.add(faCircleUser, faGear, faArrowRightFromBracket, faTrash)
 const store = useStore()
 
@@ -23,10 +24,20 @@ const logout = () => {
     router.push('/login')
   })
 }
+
+const deleteUser = async () => {
+  if (confirm('本当に削除しますか?')) {
+    await axios.get("http://localhost:3000/api/users/delete")
+    .then(() => {
+      store.commit('clearAuth')
+      router.push('/singup')
+    })
+  }
+}
 </script>
 
 <template>
-  <div class="relative">
+  <div class="fixed w-10 h-10 z-10 right-10">
     <font-awesome-icon
       icon="fa-regular fa-circle-user"
       size="2xl"
@@ -37,13 +48,13 @@ const logout = () => {
       @click="clickUserIcon"
     />
     <div v-if="showUser" class="z-20 absolute bg-white right-[4%] border-black border-2 rounded-xl px-12 py-4">
-      <p class="mb-4">
+      <p class="mb-4 flex">
         <font-awesome-icon
           icon="fa-regular fa-circle-user" size="lg" fixed-width
           class="-translate-x-1"
         />{{ email }}
       </p>
-      <button class="mb-4">
+      <button class="mb-4" @click="deleteUser()">
         <font-awesome-icon icon="fa-solid fa-trash" />
         アカウント削除
       </button>

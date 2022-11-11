@@ -10,29 +10,18 @@ import Spot from './views/admin/Spot.vue'
 import SpotList from './views/admin/SpotList.vue'
 import Public from './views/admin/Public.vue'
 import test from './views/test.vue'
-// import rally views
-import RallyHome from './views/rally/Home.vue'
-import Map from './views/rally/Map.vue'
-import AR from './views/rally/AR.vue'
-import StampList from './views/rally/StampList.vue'
 
 // metaに正しいトークンがあれば移動できるように設定
 const routes = [
-  // { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/singup', component: SingUp },
   { path: '/', component: RallyList, meta: { requiresAuth: true } },
-  { path: '/:id/edit', component: Edit, meta: { requiresAuth: true } },
-  { path: '/:id/setting-ar', component: SettingAR, meta: { requiresAuth: true } },
-  { path: '/:id/spot', component: Spot, meta: { requiresAuth: true } },
-  { path: '/:id/spotlist', name: 'spotlist', component: SpotList, meta: { requiresAuth: true } },
-  { path: '/:id/public', component: Public, meta: { requiresAuth: true } },
-  { path: '/:id/test', component: test, meta: { requiresAuth: true } },
-  // Rally
-  { path: '/:id', component: RallyHome },
-  { path: '/:id/map', component: Map },
-  { path: '/:id/AR', component: AR },
-  { path: '/:id/stamplist', component: StampList },
+  { path: '/:publicURL/edit', component: Edit, meta: { requiresAuth: true } },
+  { path: '/:publicURL/setting-ar', component: SettingAR, meta: { requiresAuth: true } },
+  { path: '/:publicURL/spot/:id', component: Spot, meta: { requiresAuth: true } },
+  { path: '/:publicURL/spotlist', name: 'spotlist', component: SpotList, meta: { requiresAuth: true } },
+  { path: '/:publicURL/public', component: Public, meta: { requiresAuth: true } },
+  { path: '//test', component: test, meta: { requiresAuth: true } },
   // { path: "/:catchAll(.*)",component: NotFound },
 ]
 

@@ -1,4 +1,5 @@
 <script setup>
+import Header from '../components/layouts/admin/Header.vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import router from '../router'
@@ -19,7 +20,9 @@ const register = () => {
       email: email.value,
       password: password.value,
     })
-    .then(() => {
+    .then( async () => {
+      await store.dispatch('getAllRally')
+      await store.dispatch('getAllSpot')
       router.push('/')
     })
 }

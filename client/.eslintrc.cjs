@@ -38,7 +38,8 @@ module.exports = {
       "multiline": {
         "max": 3
       }
-    }]
+    }],
+    "vue/attribute-hyphenation":'off'
     }
 }
 

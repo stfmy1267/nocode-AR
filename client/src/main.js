@@ -28,6 +28,7 @@ if (token) {
       let user = response.data
       await store.dispatch('setUser', user)
       await store.dispatch('getAllRally')
+      await store.dispatch('getAllSpot')
       createApp(App).use(store).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
     })
     .catch(async (err) => {

@@ -18,11 +18,11 @@ const dataBaseObj = {
   }),
   // For getting one data
   getData: (query, val = []) => new Promise((resolve, reject) => {
-    db.get(query, val, (err, row) => {
+    db.get(query, val, (err, rows) => {
       if (err) {
         return reject(err);
       }
-      resolve(row);
+      resolve(rows);
     });
     db.close
   }),
@@ -37,11 +37,28 @@ const dataBaseObj = {
     db.close
   }),
   // For updating data
-  updataData: () => console.log('更新'),
-  // For data deletion
-  deleteData: () => console.log('削除'),
+  updateDate: (query, val = []) => new Promise((resolve, reject) => {
+    db.run(query, val, (err) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve()
+    });
+    db.close
+  }),
 
-  getAllRally: (query,val = []) => new Promise((resolve, reject) => {
+  // For data deletion
+  deleteData: (query, val = []) => new Promise((resolve, reject) => {
+    db.run(query, val, (err) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve()
+    });
+    db.close
+  }),
+
+  getAllRally: (query, val = []) => new Promise((resolve, reject) => {
     db.all(query, val,(err, rows) => {
       if (err) {
         return reject(err);

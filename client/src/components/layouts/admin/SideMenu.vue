@@ -1,8 +1,12 @@
 <script setup>
+// import { defineProps ,withDefaults} from 'vue'
 import UserBar from '../../partials/UserBar.vue'
+import { useRoute } from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faGear, faCube, faLocationDot, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-library.add( faGear, faCube, faLocationDot, faPaperPlane )
+library.add(faGear, faCube, faLocationDot, faPaperPlane)
+
+const publicUrl = '/' + useRoute().params.publicURL
 </script>
 
 <template>
@@ -12,22 +16,22 @@ library.add( faGear, faCube, faLocationDot, faPaperPlane )
       <div class="top-[88px] pt-5">
         <ul>
           <li>
-            <router-link to="/edit" replace exact-active-class="link--active">
+            <router-link :to="publicUrl + '/edit'" replace exact-active-class="link--active">
               <font-awesome-icon icon="fa-solid fa-gear" size="xl" />
             </router-link>
           </li>
           <li>
-            <router-link to="/setting-ar" replace exact-active-class="link--active">
+            <router-link :to="publicUrl + '/setting-ar'" replace exact-active-class="link--active">
               <font-awesome-icon icon="fa-solid fa-cube" size="xl" />
             </router-link>
           </li>
           <li>
-            <router-link to="/spotlist" replace exact-active-class="link--active">
+            <router-link :to="publicUrl + '/spotlist'" replace exact-active-class="link--active">
               <font-awesome-icon icon="fa-solid fa-location-dot" size="xl" />
             </router-link>
           </li>
           <li>
-            <router-link to="/public" replace exact-active-class="link--active">
+            <router-link :to="publicUrl + '/public'" replace exact-active-class="link--active">
               <font-awesome-icon icon="fa-solid fa-paper-plane" size="xl" />
             </router-link>
           </li>

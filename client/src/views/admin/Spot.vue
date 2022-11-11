@@ -1,12 +1,18 @@
 <!-- eslint-disable no-undef -->
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref , reactive,  computed, onMounted } from 'vue'
 import SideMenu from '../../components/layouts/admin/SideMenu.vue'
 // import L from 'leaflet'
 import Header from '../../components/layouts/admin/Header.vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
+const spot = computed(() => store.getters.getSpot(useRoute().params.id))
+console.log(spot.value)
+let state = reactive({
+  spot: spot.value[0],
+})
 
-let lat = ref()
-let lng = ref()
 onMounted(() => {
   let map = L.map('map').fitWorld()
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -16,13 +22,17 @@ onMounted(() => {
     zoomOffset: -1,
   }).addTo(map)
   map.setView([38.575, 136.984], 5)
-  let marker
+  console.log(state.spot.lng)
+  let marker = L.marker({
+    lat:state.spot.lat,
+    lng:state.spot.lng
+  }).addTo(map)
   map.on('click', function (e) {
     if (marker) map.removeLayer(marker) //マーカー削除
     marker = L.marker(e.latlng).addTo(map) //マーカー追加
     marker.bindPopup('緯度:' + e.latlng.lat + '<br>経度:' + e.latlng.lng).openPopup()
-    lat.value = e.latlng.lat
-    lng.value = e.latlng.lng
+    state.spot.lat = e.latlng.lat
+    state.spot.lng = e.latlng.lng
   })
 })
 
@@ -73,6 +83,11 @@ const onFileChange = (e) => {
   // 画像の名前を取り出す
   img_name.value = files.value[0].name
 }
+
+const save = () => {
+  store.dispatch('saveSpot', state.spot)
+}
+
 </script>
 
 <template>
@@ -85,7 +100,10 @@ const onFileChange = (e) => {
         <div class="mb-5">
           <h3 class="mb-2 px-3">スポット名</h3>
           <form>
-            <textarea name="title" rows="1" class="w-full py-1 px-3" />
+            <textarea
+              v-model="state.spot.name" name="name" rows="1"
+              class="w-full py-1 px-3"
+            />
           </form>
         </div>
       </div>
@@ -122,15 +140,13 @@ const onFileChange = (e) => {
     </div>
     <div class="w-2/4 m-auto mt-10 mb-14 bg-gray-300">
       <h2 class="bg-black text-white text-xl px-2">位置情報の設定</h2>
-      <!-- eslint-disable  -->
-      <div id="map" class="h-[400px]"></div>
-      <p>{{ '緯度:' + lat + '経度:' + lng }}</p>
-      <!-- eslint-enable  -->
+      <div id="map" class="h-[400px]" />
+      <p>{{ '緯度:' + state.spot.lat + '経度:' + state.spot.lng }}</p>
       <div class="w-[90%] m-auto overflow-auto" />
     </div>
 
     <div class="flex justify-center items-center">
-      <button class="w-48 h-12 mb-10 btn-gray">保存</button>
+      <button class="w-48 h-12 mb-10 btn-gray" @click="save()">保存</button>
     </div>
   </div>
 </template>

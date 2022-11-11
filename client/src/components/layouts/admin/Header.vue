@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-10 h-[88px] flex justify-between items-center bg-white shadow-md">
-    <h1 class="text-3xl ml-[4%] hover:cursor-pointer" @click="$router.push('./')">nocode-AR</h1>
+    <h1 class="text-3xl ml-[4%] hover:cursor-pointer" @click="$router.push('/')">nocode-AR</h1>
   </header>
 </template>
 

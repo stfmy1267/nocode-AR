@@ -5,11 +5,15 @@ const model = require('../model/db.js')
 let meta = {title:'スポって名'}
 
 // ホーム
-router.get('/home', async (req, res) => {
+router.get('/:url/home', async (req, res) => {
+  let url = req.params.url
+  flg = await model.getData("SELECT enabled FROM public_state WHERE stamp_rally_url = ?",[url])
+  console.log(Boolean(flg.enabled))
+  // if (flg.enabled)
   res.render("../views/home.ejs");
 })
 // マップ
-router.get('/map', async (req, res) => {
+router.get('/:url/map', async (req, res) => {
   res.render("../views/map.ejs",{
     "spotLocations" : [
       {
@@ -46,15 +50,15 @@ router.get('/map', async (req, res) => {
   });
 })
 // AR
-router.get('/ar', async (req, res) => {
+router.get('/:url/ar', async (req, res) => {
   res.render("../views/ar.ejs");
 })
 // スタンプリスト
-router.get('/stamplist', async (req, res) => {
+router.get('/:url/stamplist', async (req, res) => {
   res.render("../views/stamp-list.ejs");
 })
-router.get('/test', async (req, res) => {
-  res.render("../views/test.ejs");
+router.get('/:url/preview/home', async (req, res) => {
+  res.render("../views/home.ejs");
 })
 
 module.exports = router;

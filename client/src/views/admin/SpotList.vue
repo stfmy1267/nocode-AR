@@ -1,43 +1,66 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref, computed  } from 'vue'
 import SideMenu from '../../components/layouts/admin/SideMenu.vue'
 import Header from '../../components/layouts/admin/Header.vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import axios from 'axios'
+// import axios from 'axios'
+const store = useStore()
+let publicUrl = useRoute().params.publicURL
+console.log(publicUrl)
+let spots = computed(()=> store.getters.getAllSpot(publicUrl))
+const stampRally = computed(() => store.getters.getRally(publicUrl))
+const stampRallyID = ref(stampRally.value[0].id)
+
+const saveSpot = async () => {
+  await axios.post('http://localhost:3000/api/user/spot-register',{
+    name:nameVal.value,
+    stamp_rally_id:stampRallyID.value
+    }
+  ).then(async() => {
+    await store.dispatch("getAllSpot")
+    spots = computed(() => store.getters.getRally(publicUrl))
+  })
+}
 // ポップアップのON/OFFと入力値のリセット
 let setSpotPopup = ref(false)
-const showCreatePopUp = () => {
-  setSpotPopup.value = !setSpotPopup.value
-  nameVal.value = ''
-  nameError.value = false
-}
-
-// スタンプラリー作成
-// もし、データベースにスタンプラリーがあるならそのデータを表示
-// ない場合は表示しない
-const state = reactive({
-  spots: [],
-})
 
 let nameError = ref(false)
 
 // スタンプラリー作成
 let nameVal = ref('')
 
+const showCreatePopUp = () => {
+  setSpotPopup.value = !setSpotPopup.value
+  nameVal.value = ''
+  nameError.value = false
+}
+
 const createSpot = () => {
   if (nameVal.value === '') {
     nameError.value = true
   } else {
-    state.spots.push({
-      name: nameVal.value,
-    })
+    // spots.value.push({
+    //   name: nameVal.value,
+    // })
+    saveSpot()
     showCreatePopUp()
   }
 }
 
-const deleteSpot = (index) => {
-  console.log(index)
+const deleteSpot = async (id) => {
+  //確認をとる
   if (confirm('本当に削除しますか?')) {
-    //確認をとる
-    state.spots.splice(index, 1)
+    // spots.value.splice(id, 1)
+    await axios.post('http://localhost:3000/api/user/delete-spot',{
+        id:id
+      }
+    )
+    .then(async() => {
+      await store.dispatch("getAllSpot")
+      spots = computed(() => store.getters.getRally(publicUrl))
+    })
   }
 }
 </script>
@@ -76,15 +99,15 @@ const deleteSpot = (index) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(spot, index) in state.spots" :key="spot">
+          <tr v-for="(spot,index) in spots" :key="index">
             <td class="border px-4 py-2">
               <img src="">
             </td>
             <td class="border px-4 py-2">{{ spot.name }}</td>
             <td class="border px-4 py-2">
-              <button class="btn-gray mb-3 w-4/5" @click="$router.push('/spot')">編集する</button>
+              <button class="btn-gray mb-3 w-4/5" @click="$router.push('./spot/' + spot.id )">編集する</button>
               <br>
-              <button class="btn-gray" @click="deleteSpot(index)">削除する</button>
+              <button class="btn-gray" @click="deleteSpot(spot.id)">削除する</button>
             </td>
           </tr>
         </tbody>

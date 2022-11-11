@@ -54,7 +54,7 @@ router.post(
 
 // ログイン用のAPI
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body
   const user = await model.getData("select * from users where email = ?", [email]);
   if (!user) {
     return res.status(400).json(
@@ -110,8 +110,19 @@ router.get("/user",checkJWT, async (req, res) => {
   res.status(200).json(user);
 })
 
+
 // アカウント更新用API
 
 // アカウント削除用API
-
+router.get("/delete", checkJWT, async (req,res) => {
+  const id = req.user.id
+  await model.deleteData("DELETE FROM spots WHERE user_id = ?",[id])
+  await model.deleteData("DELETE FROM stamp_rallies WHERE user_id = ?",[id])
+  await model.deleteData("DELETE FROM users WHERE id = ?",[id])
+  return res.status(200).json(
+    {
+      message:"アカウント削除"
+    }
+  )
+})
 module.exports = router;

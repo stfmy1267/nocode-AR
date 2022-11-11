@@ -1,11 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Header from '../../components/layouts/admin/Header.vue'
 import SideMenu from '../../components/layouts/admin/SideMenu.vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
-window.onbeforeunload = (e) => {
-  e.returnValue = '本当にページを閉じますか？'
-}
+let stampRally = computed(() => store.getters.getRally(useRoute().params.publicURL))
+
+let state = reactive({
+  stampRally: stampRally.value[0],
+})
+onMounted(() => {
+  window.onbeforeunload = (e) => {
+    e.returnValue = '本当にページを閉じますか？'
+  }
+})
 // ドラックした時のクラスをオン・オフ切り替えるやつ
 let isEnter = ref(false)
 // base64 エンコーディングされた data: URL の文字列が格納される
@@ -53,6 +63,9 @@ const onFileChange = (e) => {
   // 画像の名前を取り出す
   img_name.value = files.value[0].name
 }
+const save = () => {
+  store.dispatch('saveStampRally', state.stampRally)
+}
 </script>
 
 <template>
@@ -65,19 +78,28 @@ const onFileChange = (e) => {
         <div class="mb-5">
           <h3 class="mb-2 px-3">スタンプラリー名</h3>
           <form>
-            <textarea name="title" rows="1" class="w-full py-1 px-3" />
+            <textarea
+              v-model="state.stampRally.title" name="title" rows="1"
+              class="w-full py-1 px-3"
+            />
           </form>
         </div>
         <div class="mb-5">
           <h3 class="mb-2 px-3">キャッチコピー</h3>
           <form>
-            <textarea name="cc" rows="1" class="w-full py-1 px-3" />
+            <textarea
+              v-model="state.stampRally.catch_copy" name="cc" rows="1"
+              class="w-full py-1 px-3"
+            />
           </form>
         </div>
         <div class="mb-5">
           <h3 class="mb-2 px-3">紹介文</h3>
           <form>
-            <textarea name="introduction" rows="5" class="w-full py-1 px-3" />
+            <textarea
+              v-model="state.stampRally.introduction" name="introduction" rows="5"
+              class="w-full py-1 px-3"
+            />
           </form>
         </div>
       </div>
@@ -113,7 +135,7 @@ const onFileChange = (e) => {
       <div class="w-[90%] m-auto overflow-auto" />
     </div>
     <div class="flex justify-center items-center">
-      <button class="w-48 h-12 mb-10 btn-gray">保存</button>
+      <button class="w-48 h-12 mb-10 btn-gray" @click="save()">保存</button>
     </div>
   </div>
 </template>

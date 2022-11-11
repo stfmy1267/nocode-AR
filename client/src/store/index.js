@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import { auth } from './modules'
+// import { useRoute } from 'vue-router'
+
 // ルート処理用にインポート
 
 export default createStore({
@@ -12,6 +14,7 @@ export default createStore({
       user: null,
       count: 0,
       stampRally: [],
+      spots:[],
     }
   },
   // データを取ってくる場所
@@ -19,6 +22,12 @@ export default createStore({
   getters: {
     getUser: (state) => state.user,
     getAllRally: (state) => state.stampRally,
+    getRally: (state) => (url) => state.stampRally.filter((key) => key.public_url == url),
+    getAllSpot : (state) => (url) => {
+      let stampRally = state.stampRally.filter((key) => key.public_url == url)
+      return state.spots.filter((key) => key.stamp_rally_id == stampRally[0].id)
+    },
+      getSpot: (state) => (id) => state.spots.filter((key) => key.id == id),
   },
   // データを変更する処理
   mutations: {
@@ -38,15 +47,14 @@ export default createStore({
       state.user = null
       localStorage.clear()
     },
-    saveRally: (state, newStampRally) => {
-      state.stampRally.unshift(newStampRally)
-    },
+    saveRally: (state, newStampRally) => state.stampRally = newStampRally.reverse(),
+    saveSpots: (state,spots) => state.spots = spots.reverse()
   },
   // 非同期処理
   actions: {
     // ログイン
     // commitはmutationsを使うため、authDataはメールとパスワードが来る
-    login: async ({ commit, dispatch }, authData) => {
+    login: async ({ commit }, authData) => {
       await axios
         .post('http://localhost:3000/api/users/login', {
           email: authData.email,
@@ -54,7 +62,6 @@ export default createStore({
         })
         .then(async (response) => {
           // tokenと有効期限がかえってくる
-          console.log(response.data)
           // 今の時間取得
           let now = new Date()
           // 今の時間と有効期限の時間を足した時間がトークンが切れる時間
@@ -75,8 +82,6 @@ export default createStore({
           const user = await axios.get('http://localhost:3000/api/users/user')
           // vuexにユーザー保存
           commit('setUser', user.data)
-          // ログインの場合はスタンプラリーも一緒に取得
-          await dispatch('getAllRally')
         })
         .catch((err) => {
           console.log(err.response.data.message)
@@ -140,20 +145,42 @@ export default createStore({
           console.log(err.response)
         })
     },
-    getAllRally: async ({ state, commit }) => {
+    getAllRally: async ({ commit }) => {
       // vuexのスタンプラリーがなければ実行
-      if (state.stampRally.length === 0) {
-        await axios
-          .get('http://localhost:3000/api/user/rallies')
-          .then((response) => {
-            // スタンプラリ一覧がかえってくる、それをvuexに保存
-            commit('saveRally', response.data)
-          })
-          .catch((err) => {
-            // DBにスタンプラリーが一個もなければVuexに保存しない
-            console.log(err.response.data.message)
-          })
-      }
+      await axios
+        .get('http://localhost:3000/api/user/rallies')
+        .then((response) => {
+          // スタンプラリ一覧がかえってくる、それをvuexに保存
+          commit('saveRally', response.data)
+        })
+        .catch((err) => {
+          // DBにスタンプラリーが一個もなければVuexに保存しない
+          console.log(err.response.data.message)
+          commit('saveRally', [])
+        })
+    },
+    getAllSpot: async ({commit},id) => {
+      // vuexのスタンプラリーがなければ実行
+      await axios
+        .post('http://localhost:3000/api/user/spots',{id:id})
+        .then((response) => {
+          // スポット一覧がかえってくる、それをvuexに保存
+          commit('saveSpots', response.data)
+        })
+        .catch((err) => {
+          // DBにスポットが一個もなければVuexに保存しない
+          console.log(err.response.data.message)
+          commit('saveSpots', [])
+
+        })
+    },
+    // eslint-disable-next-line no-empty-pattern
+    saveStampRally: async ( {},newStampRally) => {
+      await axios.post('http://localhost:3000/api/user/save-rally', newStampRally)
+    },
+    // eslint-disable-next-line no-empty-pattern
+    saveSpot: async ( {},newSpot) => {
+      await axios.post('http://localhost:3000/api/user/save-spot', newSpot)
     },
     logout({ commit }) {
       commit('clearAuth')

@@ -3,6 +3,7 @@ import Header from '../components/layouts/admin/Header.vue'
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import UserBar from '../components/partials/UserBar.vue'
+import axios from 'axios'
 const store = useStore()
 
 // ポップアップのON/OFFと入力値のリセット
@@ -21,31 +22,35 @@ const showCreatePopUp = () => {
   arTypeError.value = false
 }
 
-// 全てのスタンプラリーを取得
-const getAllRally = computed(() => store.getters.getAllRally)
+// 全てのスタンプラリーを取得しstoreに保存
+// storeから全てのスタンプラリーを取得
+let getAllRally = computed(() => store.getters.getAllRally)
 
-const sha256 = async (text) => {
-  let now = new Date()
-  console.log(now.getTime().toString())
-  const uint8 = new TextEncoder().encode(text + now.getTime().toString())
-  const digest = await crypto.subtle.digest('SHA-256', uint8)
-  return Array.from(new Uint8Array(digest))
-    .map((v) => v.toString(16).padStart(2, '0'))
-    .join('')
+// publicUrl生成
+const createUuid = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (a) {
+    let r = (new Date().getTime() + Math.random() * 16) % 16 | 0,
+      v = a == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
 }
-sha256('東北公益文科大学スタンプラリー').then((hash) => console.log(hash))
 
-// const createUrl = async () => {
-//   await sha256(title.value).then(hash => hash)
-// }
-
-const saveRally = (url) => {
+const saveRally = async (uuid, userID) => {
   let stampRally = {
+    user_id: userID,
     title: title.value,
     type: arType.value,
-    url: url,
+    public_url: uuid,
+    test_url: uuid + '/preview',
   }
-  store.commit('saveRally', stampRally)
+  await axios.post('http://localhost:3000/api/user/rally-register', stampRally).then(() => {
+    // store.dispatch('getRally', uuid)
+    // store.commit('saveRally', stampRally)
+    // 全てのスタンプラリーを取得しstoreに保存
+    store.dispatch('getAllRally')
+    // storeから全てのスタンプラリーを取得
+    getAllRally = computed(() => store.getters.getAllRally)
+  })
 }
 
 const createRally = () => {
@@ -59,17 +64,26 @@ const createRally = () => {
     titleError.value = false
     arTypeError.value = true
   } else {
-    sha256().then((url) => {
-      saveRally(url)
-      showCreatePopUp()
-    })
+    saveRally(createUuid())
+    showCreatePopUp()
   }
 }
 
-const deleteRally = (index) => {
-  if (confirm('本当に削除しますか?')) {
-    //確認をとる
-    getAllRally.value.splice(index, 1)
+const deleteRally = async (id,url) => {
+  console.log(url)
+    if (confirm('本当に削除しますか?')) {
+    // spots.value.splice(id, 1)
+    await axios.post('http://localhost:3000/api/user/delete-rally',{
+        id:id,
+        url:url
+      }
+    )
+    .then(async() => {
+      await store.dispatch('getAllRally')
+      .then(() => {
+        getAllRally = computed(() => store.getters.getAllRally)
+      })
+    })
   }
 }
 </script>
@@ -151,7 +165,7 @@ const deleteRally = (index) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(rally, index) in getAllRally" :key="rally">
+          <tr v-for="(rally) in getAllRally" :key="rally">
             <td class="border">
               <img src="">
             </td>
@@ -159,9 +173,9 @@ const deleteRally = (index) => {
             <td class="border px-4 py-2">非公開</td>
             <td class="border px-4 py-2">{{ rally.type }}</td>
             <td class="border px-4 py-2">
-              <button class="btn-gray mb-3 w-4/5" @click="$router.push('/edit')">編集する</button>
+              <button class="btn-gray mb-3 w-4/5" @click="$router.push('/' + rally.public_url + '/edit')">編集する</button>
               <br>
-              <button class="btn-gray mb-3 w-4/5" @click="deleteRally(index)">削除する</button>
+              <button class="btn-gray mb-3 w-4/5" @click="deleteRally(rally.id,rally.public_url)">削除する</button>
             </td>
           </tr>
         </tbody>

@@ -22,7 +22,9 @@ const login = async () => {
       email: email.value,
       password: password.value,
     })
-    .then(() => {
+    .then( async () => {
+      await store.dispatch('getAllRally')
+      await store.dispatch('getAllSpot')
       router.push('/')
     })
 }
